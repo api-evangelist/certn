@@ -1,0 +1,61 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Certn
+providerId: certn
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Background Checks
+- Screening
+- Rate Limiting
+- Quotas
+- Webhooks
+description: >-
+  Certn does not publish fixed numeric per-minute or per-day rate limits for its
+  REST API in the public developer documentation. In practice the API is
+  order-oriented (you create applications and poll or receive webhooks for
+  results) rather than high-frequency, so throughput is effectively governed by
+  your account configuration and the pace at which checks are ordered rather than
+  a documented request cap. Webhook delivery has a defined retry policy: on a
+  408, 500, 502, 503, or 504 response from your endpoint, Certn retries up to
+  three additional times with increasing back-off between attempts.
+notes: >-
+  No numeric per-account or per-endpoint request-rate limit is documented as of
+  the review date. Assume standard 429 throttling may apply under abuse and
+  implement exponential backoff. Confirm any contractual throughput limits with
+  Certn for high-volume integrations. List endpoints are paginated (offset/limit)
+  which bounds per-request payload size.
+sources:
+- https://docs.certn.co/api
+- https://docs.certn.co/api/guides/use-the-api/webhooks
+- https://docs.certn.co/api/api-reference/hr
+responseCodes:
+  throttled: 429
+limits:
+- name: REST API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the Certn REST API.
+- name: List Pagination
+  scope: request
+  metric: records
+  limit: paginated via offset/limit
+  notes: Applicant/report list endpoints return results in paginated pages.
+- name: Webhook Delivery Retries
+  scope: webhook
+  metric: attempts
+  limit: 3 additional retries
+  notes: On 408/500/502/503/504 from your endpoint, Certn retries up to three more times with increasing back-off.
+policies:
+- name: Webhook Retry and Back-off
+  description: Failed webhook deliveries (408/500/502/503/504) are retried up to three additional times, waiting longer between each call; other 4xx responses trigger immediate back-off without retry.
+- name: Signature Verification
+  description: Each webhook carries a Certn-Signature header (HMAC-SHA256 over timestamp + payload) with a fresh timestamp per attempt to prevent replay; verify with constant-time comparison.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After if a 429 is returned.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

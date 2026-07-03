@@ -1,0 +1,117 @@
+aid: certn
+name: Certn
+review:
+  question: Does Certn expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Certn's public developer surface is
+    request/response REST over HTTPS for ordering and retrieving background
+    checks, plus an outbound webhook (Certn POSTs signed JSON to an endpoint you
+    register in the Partner dashboard). There is no server-push transport
+    (WebSocket or SSE) on Certn's own API to model. The webhook is one-way
+    HTTP callback delivery, not a bidirectional socket, so an AsyncAPI document
+    would add little over the REST + webhook description already captured.
+findings:
+  summary: |
+    Certn does not publish a documented public WebSocket API. Certn is a
+    background check and identity verification platform. Its public API is a
+    REST API (production base https://api.certn.co, demo
+    https://demo-api.certn.co) authenticated with OAuth 2.0 client credentials
+    (Client ID / Client Secret exchanged for a Bearer token). Clients create
+    screening applications and either poll the applicant/report list endpoints
+    or receive results via outbound webhooks. Webhooks are configured in the
+    Partner dashboard (no public REST endpoint to register them); Certn POSTs
+    signed JSON payloads with a Certn-Signature header (HMAC-SHA256 over
+    timestamp + body) and retries on 408/500/502/503/504. No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is
+    documented anywhere in Certn's developer documentation.
+  openSource: |
+    Certn's API is a proprietary, hosted commercial service - not open source.
+    A GitHub organization exists (github.com/Certn, "Certn Holdings") but it
+    holds only internal/forked tooling repositories, not API SDKs or the
+    platform source. Access to the API is free; customers pay per check.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.certn.co
+      documented: true
+      note: Primary API for ordering and retrieving background checks. Demo base is https://demo-api.certn.co.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Certn POSTs signed JSON status updates to an endpoint you register in the Partner dashboard. Server-to-endpoint HTTP callback, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Certn's API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.certn.co/api/v1/hr/applications/invite/   (deprecated)
+    - POST   https://api.certn.co/api/v1/hr/applications/quick/    (deprecated)
+    - PUT    https://api.certn.co/api/v1/hr/applicants/{applicant_id}/packages/ (deprecated)
+    - GET    https://api.certn.co/api/v1/hr/applicants/
+    - POST   https://api.certn.co/api/v1/pm/applications/invite/   (deprecated)
+    - POST   https://api.certn.co/api/v1/pm/applications/quick/    (deprecated)
+    - PUT    https://api.certn.co/api/v1/pm/applicants/{applicant_id}/packages/ (deprecated)
+    - GET    https://api.certn.co/api/v1/pm/applicants/
+    - GET    https://api.certn.co/api/v1/users/
+    - GET    https://api.certn.co/api/v2/teams/                    (deprecated)
+    - GET    https://api.certn.co/api/v2/teams/{team_id}/address/reference_templates/  (deprecated)
+    - GET    https://api.certn.co/api/v2/teams/{team_id}/employer/reference_templates/ (deprecated)
+  endpointsModeled:
+    - GET    https://api.certn.co/api/v1/reports/{applicant_id}/
+    - GET    https://api.certn.co/api/v1/checks/
+    - GET    https://api.certn.co/api/v1/packages/
+    - POST   {your-endpoint}   (webhook receiver contract; registered in Partner dashboard, not a Certn-hosted REST endpoint)
+  modelingNote: |
+    The confirmed endpoints are from the public docs.certn.co v1/v2 reference,
+    which Certn deprecated 2026-04-13 and will discontinue 2026-08-05 in favor
+    of the newer CertnCentric APIs. The CertnCentric documentation portal
+    (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint
+    paths could not be scraped; its resource groupings (cases, checks, reports,
+    packages, webhooks) and the reports/checks/packages paths above are modeled
+    honestly from the published resource catalog and check list. Confirm all
+    shapes against the live CertnCentric docs before production use.
+sources:
+  - url: https://docs.certn.co/api
+    type: Documentation
+    note: Current partner-account REST API index; OAuth 2.0 client credentials auth.
+  - url: https://docs.certn.co/api/api-reference/hr
+    type: APIReference
+    note: HR application endpoints under /api/v1/hr (invite, quick, applicants, packages).
+  - url: https://docs.certn.co/api/api-reference/pm
+    type: APIReference
+    note: Property-management application endpoints under /api/v1/pm.
+  - url: https://docs.certn.co/api/guides/use-the-api/webhooks
+    type: Documentation
+    note: Webhook signature (Certn-Signature, HMAC-SHA256), retry policy, dashboard configuration. No WebSocket.
+  - url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+    type: Documentation
+    note: Superteams/Teams/Users hierarchy; GET /api/v1/users/.
+  - url: https://certn.co/background-screening-api/
+    type: Documentation
+    note: Check catalog - criminal, identity, credit, reference, employment, education, 200+ country coverage.
+  - url: https://certn.co/pricing/
+    type: Pricing
+    note: Self-serve per-check list prices (CAD); pay-per-check, free API access.
+  - url: https://centric-api-docs.certn.co/
+    type: Documentation
+    note: Newer CertnCentric API portal (SPA); resource groupings only, exact paths not scrapable.
+  - url: https://github.com/Certn
+    type: SourceCode
+    note: Certn Holdings GitHub org - internal/forked repos only, not API SDKs.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Certn's public API is request/response
+    REST for ordering and retrieving background checks, with results delivered
+    either by polling or by outbound signed webhooks. No AsyncAPI document was
+    created because there is no server-push (WebSocket/SSE) transport on Certn's
+    own API to model; the webhook is a one-way HTTP callback already described in
+    the OpenAPI and rate-limit artifacts.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

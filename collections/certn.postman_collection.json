@@ -1,0 +1,156 @@
+{
+  "info": {
+    "name": "Certn API",
+    "description": "Order and retrieve background checks and identity verification via the Certn REST API. Base URL: https://api.certn.co (production) or https://demo-api.certn.co (demo). Auth is OAuth 2.0 client credentials - exchange Client ID/Secret for a Bearer token. Note: the v1/v2 endpoints below are confirmed against docs.certn.co but deprecated (discontinued 2026-08-05) in favor of the CertnCentric APIs; the checks/reports/packages resource paths are modeled honestly.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.certn.co", "type": "string" },
+    { "key": "bearerToken", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Applications",
+      "item": [
+        {
+          "name": "Invite an HR applicant (deprecated)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"applicant@example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"request_criminal_record_check\": true,\n  \"request_identity_verification\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/hr/applications/invite/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "hr", "applications", "invite", ""] },
+            "description": "Invite an applicant to complete a screen via email. Deprecated in the v1 API."
+          }
+        },
+        {
+          "name": "Screen an HR applicant instantly (deprecated)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"applicant@example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"checks\": [\"CRIMINAL_RECORD_CHECK\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/hr/applications/quick/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "hr", "applications", "quick", ""] },
+            "description": "Screen an applicant using only the information in the request body. Deprecated in the v1 API."
+          }
+        },
+        {
+          "name": "List HR applications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/hr/applicants/?limit=25&offset=0", "host": ["{{baseUrl}}"], "path": ["api", "v1", "hr", "applicants", ""], "query": [{ "key": "limit", "value": "25" }, { "key": "offset", "value": "0" }] },
+            "description": "Retrieve a paginated list of applications, filterable by team or owner."
+          }
+        },
+        {
+          "name": "Invite a PM applicant (deprecated)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"applicant@example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/pm/applications/invite/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "pm", "applications", "invite", ""] },
+            "description": "Invite a property-management applicant to complete a screen. Deprecated in the v1 API."
+          }
+        },
+        {
+          "name": "List PM applications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/pm/applicants/?limit=25&offset=0", "host": ["{{baseUrl}}"], "path": ["api", "v1", "pm", "applicants", ""], "query": [{ "key": "limit", "value": "25" }, { "key": "offset", "value": "0" }] },
+            "description": "View all property-management applications, paginated in chronological order."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Checks",
+      "item": [
+        {
+          "name": "List available check types (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/checks/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "checks", ""] },
+            "description": "MODELED: list the check types available to the account (criminal, identity, credit, reference, employment, education, etc.). Confirm the exact path against the CertnCentric docs."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Retrieve an applicant report (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/reports/:applicant_id/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "reports", ":applicant_id", ""], "variable": [{ "key": "applicant_id", "value": "" }] },
+            "description": "MODELED: retrieve the consolidated report for an applicant. In the confirmed v1 API the report is embedded in the applicant object; this dedicated path mirrors the CertnCentric reports resource."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Packages",
+      "item": [
+        {
+          "name": "List packages (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/packages/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "packages", ""] },
+            "description": "MODELED: list predefined screening packages (e.g. CertnCentric Essential/Pro/Elite tiers)."
+          }
+        },
+        {
+          "name": "Upgrade an application (deprecated)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"checks\": [\"CREDIT_CHECK\"]\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/hr/applicants/:applicant_id/packages/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "hr", "applicants", ":applicant_id", "packages", ""], "variable": [{ "key": "applicant_id", "value": "" }] },
+            "description": "Add further screening requests to an existing application. Deprecated in the v1 API."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Teams and Users",
+      "item": [
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v1/users/", "host": ["{{baseUrl}}"], "path": ["api", "v1", "users", ""] },
+            "description": "Retrieve the list of users in your organizational account."
+          }
+        },
+        {
+          "name": "Retrieve all teams (deprecated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v2/teams/", "host": ["{{baseUrl}}"], "path": ["api", "v2", "teams", ""] },
+            "description": "Retrieve all teams. Superteams contain Teams which contain Users. Deprecated in the v2 API."
+          }
+        },
+        {
+          "name": "Retrieve address reference templates (deprecated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/v2/teams/:team_id/address/reference_templates/", "host": ["{{baseUrl}}"], "path": ["api", "v2", "teams", ":team_id", "address", "reference_templates", ""], "variable": [{ "key": "team_id", "value": "" }] },
+            "description": "Retrieve address-reference questionnaire templates for a team. Deprecated in the v2 API."
+          }
+        }
+      ]
+    }
+  ]
+}

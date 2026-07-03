@@ -1,0 +1,240 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Certn
+providerId: certn
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Background Checks
+- Identity Verification
+- Screening
+- Plans
+- Pricing
+description: >-
+  Certn does not charge for API access itself - access is free and you pay only
+  for the checks you run (pay-per-check). Self-serve per-check list prices are
+  published in CAD on the Certn pricing page; volume, bundled CertnCentric tiers
+  (Essential, Pro, Elite), and enterprise pricing are quoted by sales. The
+  entries below capture the published self-serve per-check prices as of the
+  review date; verify current rates and currency at certn.co/pricing before
+  relying on them.
+notes: >-
+  Prices are self-serve list prices in CAD and change over time; enterprise and
+  high-volume customers receive custom bundled pricing. Some checks (e.g.
+  international criminal record checks across 200+ countries) are quoted per
+  country/jurisdiction and are not flat-rate.
+sources:
+- https://certn.co/pricing/
+- https://certn.co/background-screening-api/
+- https://docs.certn.co/api
+plans:
+- id: certn-api-access
+  name: API Access (Pay Per Check)
+  type: free
+  description: >-
+    Free access to the Certn REST API - there is no platform or subscription fee
+    to integrate. You are billed only for the individual checks you order.
+    Authentication is OAuth 2.0 client credentials.
+  entries:
+  - label: API Access
+    name: api_access
+    type: flat
+    metric: access
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (pay only for checks used)
+    userMultiplied: false
+  elements:
+  - name: OAuth 2.0 Client Credentials
+  - name: Webhooks
+  - name: Demo Environment
+- id: certn-per-check
+  name: Per-Check (Self-Serve, CAD)
+  type: usage
+  description: >-
+    Self-serve per-check list prices. Each check is ordered individually or as
+    part of a package and billed on completion.
+  entries:
+  - label: Basic Canadian Criminal Record Check
+    name: criminal_basic_ca
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: CA
+    unit: 1
+    price: CAD 24.99 per check
+    userMultiplied: false
+  - label: Enhanced Canadian Criminal Record Check
+    name: criminal_enhanced_ca
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: CA
+    unit: 1
+    price: CAD 29.99 per check
+    userMultiplied: false
+  - label: Quebec SOQUIJ Check
+    name: soquij_qc
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: CA
+    unit: 1
+    price: CAD 39.99 per check
+    userMultiplied: false
+  - label: OneID Identity Verification
+    name: identity_oneid
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 4.99 per check
+    userMultiplied: false
+  - label: Credit Report
+    name: credit_report
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 12.99 per check
+    userMultiplied: false
+  - label: Public Records Check
+    name: public_records
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 9.99 per check
+    userMultiplied: false
+  - label: Employment Verification
+    name: employment_verification
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 29.99 per check
+    userMultiplied: false
+  - label: Education Verification
+    name: education_verification
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 29.99 per check
+    userMultiplied: false
+  - label: Credential Verification
+    name: credential_verification
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 29.99 per check
+    userMultiplied: false
+  - label: Reference Check (Digital)
+    name: reference_digital
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 4.49 per check
+    userMultiplied: false
+  - label: Reference Check (Phone)
+    name: reference_phone
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 39.99 per check
+    userMultiplied: false
+  - label: Driver's Abstract / Motor Vehicle Record
+    name: drivers_abstract
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 35.99 per check
+    userMultiplied: false
+  - label: Social Media Check
+    name: social_media
+    type: usage
+    metric: checks
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: CAD 59.99 per check
+    userMultiplied: false
+  elements:
+  - name: Pay Per Check
+  - name: 200+ Country Coverage
+  - name: Consolidated Report
+- id: certn-centric-tiers
+  name: CertnCentric Bundled Tiers
+  type: subscription
+  description: >-
+    Predefined CertnCentric packages (Essential, Pro, Elite) bundle common checks
+    at negotiated rates. Exact per-tier pricing is quoted by Certn and not flat
+    self-serve; new Canadian customers have seen promotional discounts.
+  entries:
+  - label: CertnCentric Package
+    name: certncentric_package
+    type: flat
+    metric: package
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: quoted (Essential / Pro / Elite tiers)
+    userMultiplied: false
+  elements:
+  - name: Bundled Checks
+  - name: Essential / Pro / Elite Tiers
+- id: certn-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Custom volume pricing, bundled packages, and large-scale implementations for
+    high-volume partners. Contact Certn sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Bundled Packages
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

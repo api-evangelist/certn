@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Certn API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Applications", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Invite an HR applicant (deprecated)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/hr/applications/invite/",
+            "body": { "type": "json", "data": "{\n  \"email\": \"applicant@example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"request_criminal_record_check\": true,\n  \"request_identity_verification\": true\n}" }
+          },
+          "docs": "Invite an applicant to complete a screen via email. Deprecated in the v1 API."
+        },
+        {
+          "info": { "name": "Screen an HR applicant instantly (deprecated)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/hr/applications/quick/",
+            "body": { "type": "json", "data": "{\n  \"email\": \"applicant@example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"checks\": [\"CRIMINAL_RECORD_CHECK\"]\n}" }
+          },
+          "docs": "Screen an applicant using only the request body. Deprecated in the v1 API."
+        },
+        {
+          "info": { "name": "List HR applications", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/hr/applicants/",
+            "params": [
+              { "name": "limit", "value": "25", "type": "query", "description": "Max records to return." },
+              { "name": "offset", "value": "0", "type": "query", "description": "Records to skip." }
+            ]
+          },
+          "docs": "Retrieve a paginated list of applications, filterable by team or owner."
+        },
+        {
+          "info": { "name": "Invite a PM applicant (deprecated)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/pm/applications/invite/",
+            "body": { "type": "json", "data": "{\n  \"email\": \"applicant@example.com\",\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Doe\"\n}" }
+          },
+          "docs": "Invite a property-management applicant to complete a screen. Deprecated in the v1 API."
+        },
+        {
+          "info": { "name": "List PM applications", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/pm/applicants/",
+            "params": [
+              { "name": "limit", "value": "25", "type": "query", "description": "Max records to return." },
+              { "name": "offset", "value": "0", "type": "query", "description": "Records to skip." }
+            ]
+          },
+          "docs": "View all property-management applications, paginated in chronological order."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Checks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List available check types (modeled)", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/checks/"
+          },
+          "docs": "MODELED: list the check types available to the account. Confirm the exact path against the CertnCentric docs."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Reports", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Retrieve an applicant report (modeled)", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/reports/:applicant_id/",
+            "params": [
+              { "name": "applicant_id", "value": "", "type": "path", "description": "The applicant/application UUID." }
+            ]
+          },
+          "docs": "MODELED: retrieve the consolidated report for an applicant. In the confirmed v1 API the report is embedded in the applicant object."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Packages", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List packages (modeled)", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/packages/"
+          },
+          "docs": "MODELED: list predefined screening packages (e.g. CertnCentric Essential/Pro/Elite tiers)."
+        },
+        {
+          "info": { "name": "Upgrade an application (deprecated)", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.certn.co/api/v1/hr/applicants/:applicant_id/packages/",
+            "params": [
+              { "name": "applicant_id", "value": "", "type": "path", "description": "The applicant/application UUID." }
+            ],
+            "body": { "type": "json", "data": "{\n  \"checks\": [\"CREDIT_CHECK\"]\n}" }
+          },
+          "docs": "Add further screening requests to an existing application. Deprecated in the v1 API."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Teams and Users", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List users", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/users/"
+          },
+          "docs": "Retrieve the list of users in your organizational account."
+        },
+        {
+          "info": { "name": "Retrieve all teams (deprecated)", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v2/teams/"
+          },
+          "docs": "Retrieve all teams. Superteams contain Teams which contain Users. Deprecated in the v2 API."
+        },
+        {
+          "info": { "name": "Retrieve address reference templates (deprecated)", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v2/teams/:team_id/address/reference_templates/",
+            "params": [
+              { "name": "team_id", "value": "", "type": "path", "description": "The team UUID." }
+            ]
+          },
+          "docs": "Retrieve address-reference questionnaire templates for a team. Deprecated in the v2 API."
+        }
+      ]
+    }
+  ]
+}
