@@ -172,6 +172,12 @@ apis:
     Retrieve the list of users in the account and the reference templates
     configured per team.
 common:
+- type: VulnerabilityDisclosure
+  url: security/certn-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/certn-domain-security.yml
+- type: Authentication
+  url: authentication/certn-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/Certn
 - type: LinkedIn
@@ -186,6 +192,8 @@ common:
   url: rate-limits/certn-rate-limits.yml
 - type: FinOps
   url: finops/certn-finops.yml
+- type: Blog
+  url: https://certn.co/blog/feed
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
