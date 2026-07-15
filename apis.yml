@@ -172,6 +172,8 @@ apis:
     Retrieve the list of users in the account and the reference templates
     configured per team.
 common:
+- type: AgenticAccess
+  url: agentic-access/certn-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/certn-vulnerability-disclosure.yml
 - type: DomainSecurity
