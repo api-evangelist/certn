@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Certn Applications Reports API
+  description: 'Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.
+
+
+    Authentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.
+
+
+    Base URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.
+
+
+    IMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.'
+  version: '1.0'
+  contact:
+    name: Certn
+    url: https://certn.co
+  license:
+    name: Proprietary
+    url: https://certn.co/terms/
+servers:
+- url: https://api.certn.co
+  description: Production
+- url: https://demo-api.certn.co
+  description: Demo / testing
+security:
+- bearerAuth: []
+tags:
+- name: Reports
+  description: Consolidated applicant screening reports and results.
+paths:
+  /api/v1/reports/{applicant_id}/:
+    get:
+      operationId: getApplicantReport
+      tags:
+      - Reports
+      summary: Retrieve an applicant's consolidated report
+      description: 'Retrieve the consolidated screening report for an applicant, including each requested check''s status and findings, verified identity and financial data, and an overall risk assessment. MODELED: the report payload is returned within the applicant object on the confirmed v1 list endpoints; this dedicated path mirrors the CertnCentric reports resource and should be confirmed against the live docs.'
+      x-endpoint-status: modeled
+      parameters:
+      - $ref: '#/components/parameters/ApplicantId'
+      responses:
+        '200':
+          description: The applicant's consolidated report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
+    Report:
+      type: object
+      description: Consolidated report across all checks in an application.
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicant_id:
+          type: string
+          format: uuid
+        overall_result:
+          type: string
+          description: Overall adjudicated outcome / risk assessment.
+        risk_assessment:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report_url:
+          type: string
+          format: uri
+          description: Link to the rendered PDF/HTML report.
+        completed:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ApplicantId:
+      name: applicant_id
+      in: path
+      required: true
+      description: The UUID of the applicant / application.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth 2.0 client credentials. Exchange your Client ID and Client Secret for an access token, then send it as "Authorization: Bearer {token}".'

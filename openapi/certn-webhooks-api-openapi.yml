@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Certn Applications Webhooks API
+  description: 'Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.
+
+
+    Authentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.
+
+
+    Base URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.
+
+
+    IMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.'
+  version: '1.0'
+  contact:
+    name: Certn
+    url: https://certn.co
+  license:
+    name: Proprietary
+    url: https://certn.co/terms/
+servers:
+- url: https://api.certn.co
+  description: Production
+- url: https://demo-api.certn.co
+  description: Demo / testing
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Signed server-to-server callbacks for screening status updates.
+paths:
+  /webhooks/receiver:
+    post:
+      operationId: receiveWebhook
+      tags:
+      - Webhooks
+      summary: Webhook receiver (implemented on your side)
+      description: Documentation of the callback contract. Certn POSTs screening status updates to the endpoint URL you register in the Partner dashboard as results become available. Each request carries a Certn-Signature header (an HMAC-SHA256 over "{timestamp}.{json_body}" with a t= timestamp and a v1= signature) so you can verify authenticity and guard against replay. Certn retries up to three additional times on 408/500/502/503/504. There is no public REST endpoint to register webhooks - configuration is done in the Partner dashboard. This path documents the payload you receive, not a Certn-hosted endpoint.
+      x-endpoint-status: modeled
+      parameters:
+      - name: Certn-Signature
+        in: header
+        required: true
+        description: HMAC-SHA256 signature "t={timestamp},v1={signature}".
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEvent'
+      responses:
+        '200':
+          description: Acknowledge receipt (your endpoint should return 2xx).
+components:
+  schemas:
+    WebhookEvent:
+      type: object
+      description: Payload Certn POSTs to your registered webhook endpoint.
+      properties:
+        event:
+          type: string
+          description: Event type (e.g. application.updated, check.completed, report.completed).
+        applicant_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        data:
+          type: object
+          description: The updated application / check / report object.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth 2.0 client credentials. Exchange your Client ID and Client Secret for an access token, then send it as "Authorization: Bearer {token}".'

@@ -1,0 +1,380 @@
+openapi: 3.0.3
+info:
+  title: Certn Applications API
+  description: 'Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.
+
+
+    Authentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.
+
+
+    Base URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.
+
+
+    IMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.'
+  version: '1.0'
+  contact:
+    name: Certn
+    url: https://certn.co
+  license:
+    name: Proprietary
+    url: https://certn.co/terms/
+servers:
+- url: https://api.certn.co
+  description: Production
+- url: https://demo-api.certn.co
+  description: Demo / testing
+security:
+- bearerAuth: []
+tags:
+- name: Applications
+  description: Invite or instantly screen applicants and list applications (HR and PM surfaces).
+paths:
+  /api/v1/hr/applications/invite/:
+    post:
+      operationId: inviteHrApplicant
+      tags:
+      - Applications
+      summary: Invite an HR applicant to complete a screen
+      description: Invite an applicant to complete a screen via email. The applicant fills in their own information and consent, then the requested checks run. (Deprecated in the v1 API; use the CertnCentric equivalent.)
+      deprecated: true
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInvite'
+      responses:
+        '201':
+          description: Application created and invitation sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/hr/applications/quick/:
+    post:
+      operationId: quickScreenHrApplicant
+      tags:
+      - Applications
+      summary: Screen an HR applicant instantly
+      description: Screen an applicant using only the information supplied in the body of the request, without sending an invitation email. (Deprecated in the v1 API.)
+      deprecated: true
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuickScreen'
+      responses:
+        '201':
+          description: Application created and screening started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/hr/applicants/:
+    get:
+      operationId: listHrApplicants
+      tags:
+      - Applications
+      summary: List HR applications
+      description: Retrieve a paginated list of all applications, in chronological order, with filtering by team or owner.
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Team'
+      - $ref: '#/components/parameters/Owner'
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of applications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/pm/applications/invite/:
+    post:
+      operationId: invitePmApplicant
+      tags:
+      - Applications
+      summary: Invite a property-management applicant to complete a screen
+      description: Invite one or more applicants to complete a property-management screening form; supports batch invitations. (Deprecated in the v1 API.)
+      deprecated: true
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInvite'
+      responses:
+        '201':
+          description: Application(s) created and invitation(s) sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/pm/applications/quick/:
+    post:
+      operationId: quickScreenPmApplicant
+      tags:
+      - Applications
+      summary: Screen a property-management applicant instantly
+      description: Screen an applicant using only the information in the body of the request. (Deprecated in the v1 API.)
+      deprecated: true
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuickScreen'
+      responses:
+        '201':
+          description: Application created and screening started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/pm/applicants/:
+    get:
+      operationId: listPmApplicants
+      tags:
+      - Applications
+      summary: List property-management applications
+      description: View details of all applications, paginated in chronological order.
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Team'
+      - $ref: '#/components/parameters/Owner'
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of applications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Applicant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        date_of_birth:
+          type: string
+          format: date
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
+    ApplicationList:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type: string
+          nullable: true
+        previous:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+    ApplicationInvite:
+      type: object
+      description: Request to invite an applicant to complete a screen.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Applicant email to send the invitation to.
+        first_name:
+          type: string
+        last_name:
+          type: string
+        package:
+          type: string
+          description: ID of the screening package to apply.
+        team:
+          type: string
+          description: Team ID that owns the application.
+        request_criminal_record_check:
+          type: boolean
+        request_identity_verification:
+          type: boolean
+        request_credit_check:
+          type: boolean
+        request_employment_verification:
+          type: boolean
+        request_education_verification:
+          type: boolean
+        request_reference_check:
+          type: boolean
+    Report:
+      type: object
+      description: Consolidated report across all checks in an application.
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicant_id:
+          type: string
+          format: uuid
+        overall_result:
+          type: string
+          description: Overall adjudicated outcome / risk assessment.
+        risk_assessment:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report_url:
+          type: string
+          format: uri
+          description: Link to the rendered PDF/HTML report.
+        completed:
+          type: string
+          format: date-time
+    QuickScreen:
+      type: object
+      description: Instant screen using information supplied directly in the request.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+        package:
+          type: string
+        checks:
+          type: array
+          items:
+            type: string
+          description: Check type identifiers to run.
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+    Application:
+      type: object
+      description: A screening application for an applicant.
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
+        applicant:
+          $ref: '#/components/schemas/Applicant'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report:
+          $ref: '#/components/schemas/Report'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+  parameters:
+    Owner:
+      name: owner
+      in: query
+      required: false
+      description: Filter results by owner (user) ID.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+    Team:
+      name: team
+      in: query
+      required: false
+      description: Filter results by team ID.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth 2.0 client credentials. Exchange your Client ID and Client Secret for an access token, then send it as "Authorization: Bearer {token}".'
