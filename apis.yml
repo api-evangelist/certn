@@ -11,7 +11,20 @@ description: Certn is a Canada-based, globally operating background check and id
   exchanged for a Bearer token) and pushes status updates via signed webhooks. The
   original api.certn.co v1 REST API is deprecated (discontinued 2026-08-05) in
   favor of the newer CertnCentric APIs; both are modeled here honestly.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/certn.png
 tags:
 - Background Checks
 - Identity Verification
@@ -26,151 +39,172 @@ specificationVersion: '0.19'
 apis:
 - aid: certn:certn-applications-api
   name: Certn Applications API
+  description: Invite or instantly screen applicants and list applications (HR and PM surfaces).
+  humanURL: https://docs.certn.co/api/api-reference/hr
+  baseURL: https://api.certn.co/api/v1
   tags:
   - Applications
-  - Applicants
-  - Screening
-  - HR
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.certn.co/api/api-reference/hr
-  baseURL: https://api.certn.co/api/v1
   properties:
-  - url: https://docs.certn.co/api
-    type: Documentation
-  - url: https://docs.certn.co/api/api-reference/hr
-    type: APIReference
-  - url: openapi/certn-openapi.yml
-    type: OpenAPI
-  - url: collections/certn.postman_collection.json
-    type: PostmanCollection
-  - url: collections/certn.opencollection.json
-    type: OpenCollection
-  description: Invite an applicant to complete a screen by email, or screen an
-    applicant instantly from the request body, then list and filter applications.
-    Covers the HR (/api/v1/hr) and Property Management (/api/v1/pm) application
-    surfaces. Applications bundle the requested checks and return consolidated
-    results and risk assessments.
+  - type: OpenAPI
+    url: openapi/certn-applications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/api-reference/hr
+  - type: PostmanCollection
+    url: collections/certn.postman_collection.json
+  - type: OpenCollection
+    url: collections/certn.opencollection.json
+  - type: Documentation
+    url: https://certn.co/background-screening-api/
+  - type: APIReference
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+  - type: Documentation
+    url: https://docs.certn.co/api/guides/use-the-api/webhooks
+  - type: Documentation
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
 - aid: certn:certn-checks-api
   name: Certn Checks API
-  tags:
-  - Checks
-  - Criminal
-  - Identity
-  - Credit
-  - Reference
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.certn.co/api
-  baseURL: https://api.certn.co/api/v1
-  properties:
-  - url: https://certn.co/background-screening-api/
-    type: Documentation
-  - url: https://docs.certn.co/api
-    type: APIReference
-  - url: openapi/certn-openapi.yml
-    type: OpenAPI
-  - url: collections/certn.postman_collection.json
-    type: PostmanCollection
-  - url: collections/certn.opencollection.json
-    type: OpenCollection
-  description: Request and retrieve individual check types attached to an
-    application - criminal record checks (Basic and Enhanced Canadian, US,
-    international across 200+ countries), identity/OneID verification, credit
-    reports, public records, employment, education, credential, professional
-    reference, driver's abstract, working-with-children, and social media checks.
-- aid: certn:certn-reports-api
-  name: Certn Reports API
-  tags:
-  - Reports
-  - Results
-  - Adjudication
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Individual check types requested and returned within an application.
   humanURL: https://docs.certn.co/api/api-reference/hr
   baseURL: https://api.certn.co/api/v1
+  tags:
+  - Checks
   properties:
-  - url: https://docs.certn.co/api
-    type: Documentation
-  - url: https://docs.certn.co/api/api-reference/hr
-    type: APIReference
-  - url: openapi/certn-openapi.yml
-    type: OpenAPI
-  - url: collections/certn.postman_collection.json
-    type: PostmanCollection
-  - url: collections/certn.opencollection.json
-    type: OpenCollection
-  description: Retrieve consolidated screening reports for an applicant - the
-    returned document includes each requested check's status, findings, verified
-    identity data, financial data, and an overall risk assessment. Reports are
-    listed and filtered by team or owner and paginated in chronological order.
+  - type: OpenAPI
+    url: openapi/certn-checks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/api-reference/hr
+  - type: PostmanCollection
+    url: collections/certn.postman_collection.json
+  - type: OpenCollection
+    url: collections/certn.opencollection.json
+  - type: Documentation
+    url: https://certn.co/background-screening-api/
+  - type: APIReference
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+  - type: Documentation
+    url: https://docs.certn.co/api/guides/use-the-api/webhooks
+  - type: Documentation
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
 - aid: certn:certn-packages-api
   name: Certn Packages API
+  description: Predefined bundles of checks and application upgrades.
+  humanURL: https://docs.certn.co/api/api-reference/hr
+  baseURL: https://api.certn.co/api/v1
   tags:
   - Packages
-  - Bundles
-  - Configuration
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
-  baseURL: https://api.certn.co/api/v1
   properties:
-  - url: https://docs.certn.co/api
-    type: Documentation
-  - url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
-    type: APIReference
-  - url: openapi/certn-openapi.yml
-    type: OpenAPI
-  - url: collections/certn.postman_collection.json
-    type: PostmanCollection
-  - url: collections/certn.opencollection.json
-    type: OpenCollection
-  description: List the predefined screening packages (bundled sets of checks such
-    as the CertnCentric Essential, Pro, and Elite tiers) configured for a team, and
-    upgrade an existing application by adding further screening requests to an
-    applicant after the initial report returns.
+  - type: OpenAPI
+    url: openapi/certn-packages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/api-reference/hr
+  - type: PostmanCollection
+    url: collections/certn.postman_collection.json
+  - type: OpenCollection
+    url: collections/certn.opencollection.json
+  - type: Documentation
+    url: https://certn.co/background-screening-api/
+  - type: APIReference
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+  - type: Documentation
+    url: https://docs.certn.co/api/guides/use-the-api/webhooks
+  - type: Documentation
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+- aid: certn:certn-reports-api
+  name: Certn Reports API
+  description: Consolidated applicant screening reports and results.
+  humanURL: https://docs.certn.co/api/api-reference/hr
+  baseURL: https://api.certn.co/api/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/certn-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/api-reference/hr
+  - type: PostmanCollection
+    url: collections/certn.postman_collection.json
+  - type: OpenCollection
+    url: collections/certn.opencollection.json
+  - type: Documentation
+    url: https://certn.co/background-screening-api/
+  - type: APIReference
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+  - type: Documentation
+    url: https://docs.certn.co/api/guides/use-the-api/webhooks
+  - type: Documentation
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+- aid: certn:certn-teams-and-users-api
+  name: Certn Teams and Users API
+  description: Organizational hierarchy - Superteams, Teams, Users, reference templates.
+  humanURL: https://docs.certn.co/api/api-reference/hr
+  baseURL: https://api.certn.co/api/v1
+  tags:
+  - Teams and Users
+  properties:
+  - type: OpenAPI
+    url: openapi/certn-teams-and-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/api-reference/hr
+  - type: PostmanCollection
+    url: collections/certn.postman_collection.json
+  - type: OpenCollection
+    url: collections/certn.opencollection.json
+  - type: Documentation
+    url: https://certn.co/background-screening-api/
+  - type: APIReference
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+  - type: Documentation
+    url: https://docs.certn.co/api/guides/use-the-api/webhooks
+  - type: Documentation
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
 - aid: certn:certn-webhooks-api
   name: Certn Webhooks API
+  description: Signed server-to-server callbacks for screening status updates.
+  humanURL: https://docs.certn.co/api/api-reference/hr
+  baseURL: https://api.certn.co/api/v1
   tags:
   - Webhooks
-  - Events
-  - Notifications
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.certn.co/api/guides/use-the-api/webhooks
-  baseURL: https://api.certn.co/api/v1
   properties:
-  - url: https://docs.certn.co/api/guides/use-the-api/webhooks
-    type: Documentation
-  - url: openapi/certn-openapi.yml
-    type: OpenAPI
-  - url: collections/certn.postman_collection.json
-    type: PostmanCollection
-  - url: collections/certn.opencollection.json
-    type: OpenCollection
-  description: Receive server-to-server POST callbacks as screening results become
-    available. Certn signs each payload with a Certn-Signature header (HMAC-SHA256
-    with a timestamp and v1 signature) and retries on 408/500/502/503/504.
-    Webhook endpoints are registered in the Partner dashboard, not via a public
-    REST endpoint.
-- aid: certn:certn-teams-users-api
-  name: Certn Teams and Users API
-  tags:
-  - Teams
-  - Users
-  - Superteams
-  - Organization
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
-  baseURL: https://api.certn.co/api/v1
-  properties:
-  - url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
-    type: Documentation
-  - url: openapi/certn-openapi.yml
-    type: OpenAPI
-  - url: collections/certn.postman_collection.json
-    type: PostmanCollection
-  - url: collections/certn.opencollection.json
-    type: OpenCollection
-  description: Read the account's organizational hierarchy - Superteams contain
-    Teams which contain Users - to scope applications, packages, and reports.
-    Retrieve the list of users in the account and the reference templates
-    configured per team.
+  - type: OpenAPI
+    url: openapi/certn-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/api-reference/hr
+  - type: PostmanCollection
+    url: collections/certn.postman_collection.json
+  - type: OpenCollection
+    url: collections/certn.opencollection.json
+  - type: Documentation
+    url: https://certn.co/background-screening-api/
+  - type: APIReference
+    url: https://docs.certn.co/api
+  - type: APIReference
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
+  - type: Documentation
+    url: https://docs.certn.co/api/guides/use-the-api/webhooks
+  - type: Documentation
+    url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
 common:
 - type: AgenticAccess
   url: agentic-access/certn-agentic-access.yml
