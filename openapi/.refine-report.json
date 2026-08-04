@@ -1,0 +1,24 @@
+{
+  "provider": "certn",
+  "sources": [
+    "certn-applications-api-openapi.yml",
+    "certn-checks-api-openapi.yml",
+    "certn-packages-api-openapi.yml",
+    "certn-reports-api-openapi.yml",
+    "certn-teams-and-users-api-openapi.yml",
+    "certn-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "certn-applications-api-openapi.yml",
+    "certn-checks-api-openapi.yml",
+    "certn-packages-api-openapi.yml",
+    "certn-reports-api-openapi.yml",
+    "certn-teams-and-users-api-openapi.yml",
+    "certn-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
