@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Certn Applications Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Webhook receiver (implemented on your side)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/webhooks/receiver",
+            "headers": [
+              {
+                "name": "Certn-Signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Documentation of the callback contract. Certn POSTs screening status updates to the endpoint URL you register in the Partner dashboard as results become available. Each request carries a Certn-Signature header (an HMAC-SHA256 over \"{timestamp}.{json_body}\" with a t= timestamp and a v1= signature) so you can verify authenticity and guard against replay. Certn retries up to three additional times on 408/500/502/503/504. There is no public REST endpoint to register webhooks - configuration is done "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

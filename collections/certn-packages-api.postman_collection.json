@@ -1,0 +1,380 @@
+{
+  "item": [
+    {
+      "id": "59b623b8-3310-4d4c-a66f-3c3000cc280c",
+      "name": "Packages",
+      "description": {
+        "content": "Predefined bundles of checks and application upgrades.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "532a38e4-04f2-4021-bd0f-c3887ce8cc57",
+          "name": "Add screening requests to an existing application",
+          "request": {
+            "name": "Add screening requests to an existing application",
+            "description": {
+              "content": "Upgrade an application by adding further screening requests (checks or a package) to an existing applicant after the initial report returns. (Deprecated in the v1 API.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "hr",
+                "applicants",
+                ":applicant_id",
+                "packages",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicant_id",
+                  "description": "(Required) The UUID of the applicant / application."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ff5a000-88bd-4152-80a5-fc0b316df9c3",
+              "name": "Application upgraded with the added requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applicants",
+                    ":applicant_id",
+                    "packages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicant_id",
+                      "description": "(Required) The UUID of the applicant / application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"0e6f9b36-9821-9b8c-4ae2-8065cdcb9a43\",\n  \"status\": \"string\",\n  \"applicant\": {\n    \"id\": \"d3db066d-e11d-13e2-1374-d896c64183ec\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"nvRLf@mIACcfjcOfw.mfj\",\n    \"date_of_birth\": \"1981-09-29\"\n  },\n  \"checks\": [\n    {\n      \"id\": \"c417c992-27ff-d591-e7e5-47c02373fbb2\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"id\": \"6b6ce24e-8938-86aa-6e38-c64d21ecdc35\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"report\": {\n    \"id\": \"e35c522a-beba-4e72-9a1f-95a4a3c4f970\",\n    \"applicant_id\": \"c0178f7e-eb00-26a8-2257-c7947b0e6a70\",\n    \"overall_result\": \"string\",\n    \"risk_assessment\": \"string\",\n    \"checks\": [\n      {\n        \"id\": \"a49f8bdc-6b15-3689-459e-b132421229c7\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      },\n      {\n        \"id\": \"28907215-7dd9-752e-108f-e83d900b20de\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      }\n    ],\n    \"report_url\": \"https://ORcevHdSZYsRfQJhOgO.scwUkl6nc8VDZgHhohArEPjzN+IMdiBqFZxoHMtdNzoK382EBtH\",\n    \"completed\": \"1946-09-19T21:18:42.918Z\"\n  },\n  \"created\": \"1952-06-04T22:56:27.560Z\",\n  \"modified\": \"1993-07-07T12:36:40.770Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59579fcc-0366-43ed-a1c6-afca3099c567",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applicants",
+                    ":applicant_id",
+                    "packages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicant_id",
+                      "description": "(Required) The UUID of the applicant / application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "278a2788-45f1-4326-ba95-6ac5508f302d",
+          "name": "List screening packages",
+          "request": {
+            "name": "List screening packages",
+            "description": {
+              "content": "List the predefined screening packages configured for the account or team (for example the CertnCentric Essential, Pro, and Elite tiers), each a named bundle of checks. MODELED from the general-resources docs; confirm the exact path against the CertnCentric docs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "packages",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team",
+                  "value": "<string>",
+                  "description": "Filter results by team ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ca535b5-a0b6-4ac7-a33a-30ab612281b9",
+              "name": "A list of packages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"d8672547-a1db-9c82-c07e-7f6fc150264a\",\n      \"name\": \"string\",\n      \"checks\": [\n        \"string\",\n        \"string\"\n      ],\n      \"team\": \"string\"\n    },\n    {\n      \"id\": \"615c4ed3-191e-30f7-5ff0-9576d51d2b95\",\n      \"name\": \"string\",\n      \"checks\": [\n        \"string\",\n        \"string\"\n      ],\n      \"team\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71d35be9-74ee-41b8-97ca-9742d11d0438",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "packages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.certn.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6097c859-695c-4225-9e81-4aed4611fc1b",
+    "name": "Certn Applications Packages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.\n\nAuthentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.\n\nBase URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.\n\nIMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.\n\nContact Support:\n Name: Certn",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Certn Applications Checks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available check types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/checks/"
+          },
+          "docs": "List the check types available to the account (criminal, identity/OneID, credit, public records, employment, education, credential, professional reference, driver's abstract, working-with-children, social media, and international variants). MODELED from the published check catalog; confirm the exact path and schema against the CertnCentric docs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

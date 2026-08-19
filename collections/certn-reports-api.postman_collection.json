@@ -1,0 +1,253 @@
+{
+  "item": [
+    {
+      "id": "813b003e-b243-4c23-8a2d-b5f9e9ee725d",
+      "name": "Reports",
+      "description": {
+        "content": "Consolidated applicant screening reports and results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "59348469-72bb-4bf4-8590-781ebd87b40b",
+          "name": "Retrieve an applicant's consolidated report",
+          "request": {
+            "name": "Retrieve an applicant's consolidated report",
+            "description": {
+              "content": "Retrieve the consolidated screening report for an applicant, including each requested check's status and findings, verified identity and financial data, and an overall risk assessment. MODELED: the report payload is returned within the applicant object on the confirmed v1 list endpoints; this dedicated path mirrors the CertnCentric reports resource and should be confirmed against the live docs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "reports",
+                ":applicant_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicant_id",
+                  "description": "(Required) The UUID of the applicant / application."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5ec9cc3-2c1b-4442-9280-20650d935e2e",
+              "name": "The applicant's consolidated report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "reports",
+                    ":applicant_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicant_id",
+                      "description": "(Required) The UUID of the applicant / application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"d18dbe0d-e49d-83cd-7c9e-5a27733af2b9\",\n  \"applicant_id\": \"e1aac502-232c-38a7-1d38-024475c68db1\",\n  \"overall_result\": \"string\",\n  \"risk_assessment\": \"string\",\n  \"checks\": [\n    {\n      \"id\": \"cc83dec6-ab3d-2c28-4350-4a63db407028\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"id\": \"a1c7aae3-5ffc-410b-c589-359f5178f2df\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"report_url\": \"http://wwsYbygW.jwpdZWmN8GHHFPKRkHgpxM-\",\n  \"completed\": \"2014-07-09T21:07:24.490Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2bf359e-ed28-4cbf-8c35-983eda65dddf",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "reports",
+                    ":applicant_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicant_id",
+                      "description": "(Required) The UUID of the applicant / application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "370f17fa-7b95-46cb-aa46-49b02fa6d950",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "reports",
+                    ":applicant_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicant_id",
+                      "description": "(Required) The UUID of the applicant / application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.certn.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2109612d-5afa-4163-817d-2e7a1927fbd6",
+    "name": "Certn Applications Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.\n\nAuthentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.\n\nBase URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.\n\nIMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.\n\nContact Support:\n Name: Certn",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Certn Applications Reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an applicant's consolidated report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/reports/:applicant_id/",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the applicant / application."
+              }
+            ]
+          },
+          "docs": "Retrieve the consolidated screening report for an applicant, including each requested check's status and findings, verified identity and financial data, and an overall risk assessment. MODELED: the report payload is returned within the applicant object on the confirmed v1 list endpoints; this dedicated path mirrors the CertnCentric reports resource and should be confirmed against the live docs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

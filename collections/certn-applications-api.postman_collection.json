@@ -1,0 +1,1085 @@
+{
+  "item": [
+    {
+      "id": "aaff5972-2c80-4295-9eb5-70998c2cf077",
+      "name": "Applications",
+      "description": {
+        "content": "Invite or instantly screen applicants and list applications (HR and PM surfaces).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d261b717-1e14-4729-855a-7c56291292e8",
+          "name": "Invite an HR applicant to complete a screen",
+          "request": {
+            "name": "Invite an HR applicant to complete a screen",
+            "description": {
+              "content": "Invite an applicant to complete a screen via email. The applicant fills in their own information and consent, then the requested checks run. (Deprecated in the v1 API; use the CertnCentric equivalent.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "hr",
+                "applications",
+                "invite",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"package\": \"<string>\",\n  \"team\": \"<string>\",\n  \"request_criminal_record_check\": \"<boolean>\",\n  \"request_identity_verification\": \"<boolean>\",\n  \"request_credit_check\": \"<boolean>\",\n  \"request_employment_verification\": \"<boolean>\",\n  \"request_education_verification\": \"<boolean>\",\n  \"request_reference_check\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3286ffc-7f69-4882-9aeb-f81ff5e0d564",
+              "name": "Application created and invitation sent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applications",
+                    "invite",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"package\": \"<string>\",\n  \"team\": \"<string>\",\n  \"request_criminal_record_check\": \"<boolean>\",\n  \"request_identity_verification\": \"<boolean>\",\n  \"request_credit_check\": \"<boolean>\",\n  \"request_employment_verification\": \"<boolean>\",\n  \"request_education_verification\": \"<boolean>\",\n  \"request_reference_check\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"dcd63b47-240b-9a85-0aa1-f92bed347b2f\",\n  \"status\": \"string\",\n  \"applicant\": {\n    \"id\": \"067138c2-4768-86a7-da82-4255389aefab\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"CrJUkp@IwZXpHYRQwZPMmONQUCMMStS.bkh\",\n    \"date_of_birth\": \"1963-04-20\"\n  },\n  \"checks\": [\n    {\n      \"id\": \"1a72a04f-cf7e-1e8a-d061-09cd8f4b6033\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"id\": \"aab4b29f-07ef-7128-bf2b-811af0fcf4cc\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"report\": {\n    \"id\": \"9484ee16-aad9-abfb-3e74-fd18b2ff8e29\",\n    \"applicant_id\": \"dedcb982-bce2-7cc6-bebc-53016db340eb\",\n    \"overall_result\": \"string\",\n    \"risk_assessment\": \"string\",\n    \"checks\": [\n      {\n        \"id\": \"d29ee520-a02a-17e9-589a-ffee9e3b2146\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      },\n      {\n        \"id\": \"2d4d531d-1915-8df2-3e9c-f8dc9b33e30c\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      }\n    ],\n    \"report_url\": \"https://XjAoKX.cxqlzPqs\",\n    \"completed\": \"1974-07-07T12:03:08.487Z\"\n  },\n  \"created\": \"1995-01-01T23:08:00.267Z\",\n  \"modified\": \"1947-10-25T03:05:24.449Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c4e70b4-7386-4637-8d7a-af248745f6fb",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applications",
+                    "invite",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"package\": \"<string>\",\n  \"team\": \"<string>\",\n  \"request_criminal_record_check\": \"<boolean>\",\n  \"request_identity_verification\": \"<boolean>\",\n  \"request_credit_check\": \"<boolean>\",\n  \"request_employment_verification\": \"<boolean>\",\n  \"request_education_verification\": \"<boolean>\",\n  \"request_reference_check\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ed1c956-b2e2-4837-bf0a-44b36809a55f",
+          "name": "Screen an HR applicant instantly",
+          "request": {
+            "name": "Screen an HR applicant instantly",
+            "description": {
+              "content": "Screen an applicant using only the information supplied in the body of the request, without sending an invitation email. (Deprecated in the v1 API.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "hr",
+                "applications",
+                "quick",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"date_of_birth\": \"<date>\",\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3aefa53b-c7e2-4d11-991e-b6fe34f3585a",
+              "name": "Application created and screening started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applications",
+                    "quick",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"date_of_birth\": \"<date>\",\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9c763f21-3e05-0fa0-dfb6-dff730091734\",\n  \"status\": \"string\",\n  \"applicant\": {\n    \"id\": \"bfd1f589-d000-00f1-f6d5-cff8b409d322\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"VNHsvHV@otsbeWvux.ycg\",\n    \"date_of_birth\": \"1962-02-25\"\n  },\n  \"checks\": [\n    {\n      \"id\": \"a6aba854-df03-b9b8-5660-1dca40214ebf\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"id\": \"af73e653-5133-04bc-f899-7f15d1673122\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"report\": {\n    \"id\": \"4efff696-2cd2-f909-8669-d9c177f21da8\",\n    \"applicant_id\": \"380030c6-2f67-6509-d888-0716c5fc0db4\",\n    \"overall_result\": \"string\",\n    \"risk_assessment\": \"string\",\n    \"checks\": [\n      {\n        \"id\": \"d4b4d6a2-22cd-df0f-70b3-eae3d1f4b94b\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      },\n      {\n        \"id\": \"0e7e71c3-3763-1a54-38f9-1ec4e965ffb6\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      }\n    ],\n    \"report_url\": \"http://Mdox.lgbvH+v3Ss6SckWw\",\n    \"completed\": \"1990-05-31T04:06:05.964Z\"\n  },\n  \"created\": \"1947-04-29T08:18:23.381Z\",\n  \"modified\": \"1963-03-19T12:28:04.643Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c76394c9-5649-4505-8659-f6ea6d2d606b",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applications",
+                    "quick",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"date_of_birth\": \"<date>\",\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a1abcd7-bf39-4acd-8132-476436cfe856",
+          "name": "List HR applications",
+          "request": {
+            "name": "List HR applications",
+            "description": {
+              "content": "Retrieve a paginated list of all applications, in chronological order, with filtering by team or owner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "hr",
+                "applicants",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team",
+                  "value": "<string>",
+                  "description": "Filter results by team ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>",
+                  "description": "Filter results by owner (user) ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of records to skip for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19441ae7-4cf8-4b6e-89b3-fd7b411e2626",
+              "name": "A paginated list of applications.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applicants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 7736,\n  \"next\": \"string\",\n  \"previous\": \"string\",\n  \"results\": [\n    {\n      \"id\": \"a58017d9-f260-3cf3-7f67-b7b0061ec8a5\",\n      \"status\": \"string\",\n      \"applicant\": {\n        \"id\": \"2858a903-be83-0f0e-01fb-76fa10f1971f\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"z0j@oQdAMVOkeL.dy\",\n        \"date_of_birth\": \"2024-01-06\"\n      },\n      \"checks\": [\n        {\n          \"id\": \"155f4395-99f4-2cd9-0612-9280ec3be182\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"id\": \"7a27b4a9-246d-0f65-2b0d-a843c9cce5b4\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"report\": {\n        \"id\": \"f10fda67-7ee0-ac3a-1c78-458f45a288f5\",\n        \"applicant_id\": \"5c1a4bb2-3b0d-3e5a-f474-73749053a6af\",\n        \"overall_result\": \"string\",\n        \"risk_assessment\": \"string\",\n        \"checks\": [\n          {\n            \"id\": \"cab9f3f0-f2ed-015c-301d-079cb3d56f12\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          },\n          {\n            \"id\": \"fe577c27-78e7-df31-eb12-6be0b5be1b14\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          }\n        ],\n        \"report_url\": \"http://jFqgQOKTbymLaFwcsjGttQoMszmEF.cbtyWZzZ.I,J.WnpRMJdU4nFPTLrPRmfYrKR78cPcu.SkRJ-iP67rkvxWx5ODlu\",\n        \"completed\": \"2012-05-11T17:53:47.659Z\"\n      },\n      \"created\": \"1996-04-26T21:09:49.223Z\",\n      \"modified\": \"1948-07-19T19:18:45.036Z\"\n    },\n    {\n      \"id\": \"dad1d1af-0255-4bcd-781f-567e62c78354\",\n      \"status\": \"string\",\n      \"applicant\": {\n        \"id\": \"559114ad-79da-24ca-f266-5b6deaa4cc42\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"3pPhFg8xzM@szpwYhpYyu.xp\",\n        \"date_of_birth\": \"1992-08-06\"\n      },\n      \"checks\": [\n        {\n          \"id\": \"79017563-4e87-5711-3ac0-ba06701dee90\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"id\": \"1bca089e-0287-001b-fa3d-50f484d3acd1\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"report\": {\n        \"id\": \"fa5be305-8281-9a5c-bffe-9d5aaf025481\",\n        \"applicant_id\": \"18370e80-0636-bf53-f88e-0bd663f888fd\",\n        \"overall_result\": \"string\",\n        \"risk_assessment\": \"string\",\n        \"checks\": [\n          {\n            \"id\": \"4e73a422-af8f-b982-c17d-6b2ce1322362\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          },\n          {\n            \"id\": \"c7010d37-3c7d-fa85-ec87-f1bf9627f2e2\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          }\n        ],\n        \"report_url\": \"https://tcx.dbbcFZnGqlu1IQ5yvNthlugHZDKSIbosn970YxisQNqRUF47H9ADj0nUu\",\n        \"completed\": \"2021-11-08T21:22:59.726Z\"\n      },\n      \"created\": \"1951-03-22T19:54:22.904Z\",\n      \"modified\": \"1972-01-05T06:06:43.026Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9abc3ca-95ee-41c7-b8f9-da9ece5d0469",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "hr",
+                    "applicants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be21daa5-b530-44bb-a34c-3e62f4034c83",
+          "name": "Invite a property-management applicant to complete a screen",
+          "request": {
+            "name": "Invite a property-management applicant to complete a screen",
+            "description": {
+              "content": "Invite one or more applicants to complete a property-management screening form; supports batch invitations. (Deprecated in the v1 API.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pm",
+                "applications",
+                "invite",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"package\": \"<string>\",\n  \"team\": \"<string>\",\n  \"request_criminal_record_check\": \"<boolean>\",\n  \"request_identity_verification\": \"<boolean>\",\n  \"request_credit_check\": \"<boolean>\",\n  \"request_employment_verification\": \"<boolean>\",\n  \"request_education_verification\": \"<boolean>\",\n  \"request_reference_check\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b97386f3-1ecf-4246-b765-3805ba79e608",
+              "name": "Application(s) created and invitation(s) sent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pm",
+                    "applications",
+                    "invite",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"package\": \"<string>\",\n  \"team\": \"<string>\",\n  \"request_criminal_record_check\": \"<boolean>\",\n  \"request_identity_verification\": \"<boolean>\",\n  \"request_credit_check\": \"<boolean>\",\n  \"request_employment_verification\": \"<boolean>\",\n  \"request_education_verification\": \"<boolean>\",\n  \"request_reference_check\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9c763f21-3e05-0fa0-dfb6-dff730091734\",\n  \"status\": \"string\",\n  \"applicant\": {\n    \"id\": \"bfd1f589-d000-00f1-f6d5-cff8b409d322\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"VNHsvHV@otsbeWvux.ycg\",\n    \"date_of_birth\": \"1962-02-25\"\n  },\n  \"checks\": [\n    {\n      \"id\": \"a6aba854-df03-b9b8-5660-1dca40214ebf\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"id\": \"af73e653-5133-04bc-f899-7f15d1673122\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"report\": {\n    \"id\": \"4efff696-2cd2-f909-8669-d9c177f21da8\",\n    \"applicant_id\": \"380030c6-2f67-6509-d888-0716c5fc0db4\",\n    \"overall_result\": \"string\",\n    \"risk_assessment\": \"string\",\n    \"checks\": [\n      {\n        \"id\": \"d4b4d6a2-22cd-df0f-70b3-eae3d1f4b94b\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      },\n      {\n        \"id\": \"0e7e71c3-3763-1a54-38f9-1ec4e965ffb6\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      }\n    ],\n    \"report_url\": \"http://Mdox.lgbvH+v3Ss6SckWw\",\n    \"completed\": \"1990-05-31T04:06:05.964Z\"\n  },\n  \"created\": \"1947-04-29T08:18:23.381Z\",\n  \"modified\": \"1963-03-19T12:28:04.643Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdd01bcb-7ad3-4003-a170-3bfc4b40f4c7",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pm",
+                    "applications",
+                    "invite",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"package\": \"<string>\",\n  \"team\": \"<string>\",\n  \"request_criminal_record_check\": \"<boolean>\",\n  \"request_identity_verification\": \"<boolean>\",\n  \"request_credit_check\": \"<boolean>\",\n  \"request_employment_verification\": \"<boolean>\",\n  \"request_education_verification\": \"<boolean>\",\n  \"request_reference_check\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1f74756-cc58-4560-afc6-cd41e061c454",
+          "name": "Screen a property-management applicant instantly",
+          "request": {
+            "name": "Screen a property-management applicant instantly",
+            "description": {
+              "content": "Screen an applicant using only the information in the body of the request. (Deprecated in the v1 API.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pm",
+                "applications",
+                "quick",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"date_of_birth\": \"<date>\",\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "039b2ce2-e073-4ac1-8ad8-8a7e116a0d89",
+              "name": "Application created and screening started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pm",
+                    "applications",
+                    "quick",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"date_of_birth\": \"<date>\",\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9c763f21-3e05-0fa0-dfb6-dff730091734\",\n  \"status\": \"string\",\n  \"applicant\": {\n    \"id\": \"bfd1f589-d000-00f1-f6d5-cff8b409d322\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"VNHsvHV@otsbeWvux.ycg\",\n    \"date_of_birth\": \"1962-02-25\"\n  },\n  \"checks\": [\n    {\n      \"id\": \"a6aba854-df03-b9b8-5660-1dca40214ebf\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"id\": \"af73e653-5133-04bc-f899-7f15d1673122\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"result\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"report\": {\n    \"id\": \"4efff696-2cd2-f909-8669-d9c177f21da8\",\n    \"applicant_id\": \"380030c6-2f67-6509-d888-0716c5fc0db4\",\n    \"overall_result\": \"string\",\n    \"risk_assessment\": \"string\",\n    \"checks\": [\n      {\n        \"id\": \"d4b4d6a2-22cd-df0f-70b3-eae3d1f4b94b\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      },\n      {\n        \"id\": \"0e7e71c3-3763-1a54-38f9-1ec4e965ffb6\",\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"result\": \"string\",\n        \"country\": \"string\"\n      }\n    ],\n    \"report_url\": \"http://Mdox.lgbvH+v3Ss6SckWw\",\n    \"completed\": \"1990-05-31T04:06:05.964Z\"\n  },\n  \"created\": \"1947-04-29T08:18:23.381Z\",\n  \"modified\": \"1963-03-19T12:28:04.643Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fb69be9-7784-4f67-9f72-484981276242",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pm",
+                    "applications",
+                    "quick",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"date_of_birth\": \"<date>\",\n  \"package\": \"<string>\",\n  \"checks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "924ca001-b793-4c48-850e-fb998ff38f63",
+          "name": "List property-management applications",
+          "request": {
+            "name": "List property-management applications",
+            "description": {
+              "content": "View details of all applications, paginated in chronological order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pm",
+                "applicants",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team",
+                  "value": "<string>",
+                  "description": "Filter results by team ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>",
+                  "description": "Filter results by owner (user) ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of records to skip for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f9624a96-268f-4416-afd1-8b1e233df838",
+              "name": "A paginated list of applications.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pm",
+                    "applicants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 6974,\n  \"next\": \"string\",\n  \"previous\": \"string\",\n  \"results\": [\n    {\n      \"id\": \"a4b03bd2-42c7-214f-845b-d174e53a0820\",\n      \"status\": \"string\",\n      \"applicant\": {\n        \"id\": \"e508c12b-8c65-d627-63aa-1626f2e374e3\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"bwTF5aEJ@FjoC.ddoi\",\n        \"date_of_birth\": \"2025-08-17\"\n      },\n      \"checks\": [\n        {\n          \"id\": \"6fedc68c-8c13-cced-e65c-3f46a05b6a22\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"id\": \"939e519f-8717-bbf6-a961-cb001abcb6c0\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"report\": {\n        \"id\": \"30713bf0-0f2b-91f3-1600-7fcc7e9e6a45\",\n        \"applicant_id\": \"292e1acf-b93c-847c-7e5a-5099d2495f3f\",\n        \"overall_result\": \"string\",\n        \"risk_assessment\": \"string\",\n        \"checks\": [\n          {\n            \"id\": \"e6ce8dcd-8579-0aa1-d410-7f04699fb454\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          },\n          {\n            \"id\": \"1229893a-4b78-0799-e56e-cc71f6857194\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          }\n        ],\n        \"report_url\": \"https://FuUECCxZc.dfavCuWeS2+8fNf3xMlYUlU-FyERLuhWEG-DwBGMAUJ0SnAy3eHT+6iUwms\",\n        \"completed\": \"1984-12-15T09:14:02.550Z\"\n      },\n      \"created\": \"1953-04-13T16:32:04.267Z\",\n      \"modified\": \"1973-11-23T15:50:09.633Z\"\n    },\n    {\n      \"id\": \"4636c1f4-475c-67f6-0987-c78e3d4d5756\",\n      \"status\": \"string\",\n      \"applicant\": {\n        \"id\": \"63ea61fe-2ce8-7b66-448a-1b37335081da\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"7Rdf0Rv3ubaql@vQzlznealvGD.dtg\",\n        \"date_of_birth\": \"1965-05-06\"\n      },\n      \"checks\": [\n        {\n          \"id\": \"66847d51-2cf8-a499-02a8-725287c44552\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"id\": \"8db9fd9b-e04c-7583-3f46-12684b0303ae\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"result\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"report\": {\n        \"id\": \"cc7f1cea-acf4-f4fd-d01a-48a05b642399\",\n        \"applicant_id\": \"8ba31c2e-f10c-a1e6-f00c-b39070bcfd60\",\n        \"overall_result\": \"string\",\n        \"risk_assessment\": \"string\",\n        \"checks\": [\n          {\n            \"id\": \"dbe00899-91f3-eeaf-82e3-33cd1ddedda6\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          },\n          {\n            \"id\": \"6cb8f19e-056a-2ab4-baad-08d4ab35852f\",\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"result\": \"string\",\n            \"country\": \"string\"\n          }\n        ],\n        \"report_url\": \"https://yUUEkpfrfpZFHFqJuGARUoDiaEZKSQVDW.dqzgdEEsa4.c0Bnj-ZChlpFfkbpqJZImVU.W2WIaTbchi8rdgpc7,LRvX\",\n        \"completed\": \"1994-03-11T00:47:04.233Z\"\n      },\n      \"created\": \"1975-09-20T12:17:23.638Z\",\n      \"modified\": \"1959-03-12T12:18:14.588Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5a19ae8-fc53-4ab1-a37b-c443f90a4bfc",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pm",
+                    "applicants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.certn.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f65d7044-ca93-4ec3-96f2-17be268c314d",
+    "name": "Certn Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.\n\nAuthentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.\n\nBase URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.\n\nIMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.\n\nContact Support:\n Name: Certn",
+      "type": "text/plain"
+    }
+  }
+}

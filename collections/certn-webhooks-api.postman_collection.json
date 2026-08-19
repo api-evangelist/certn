@@ -1,0 +1,146 @@
+{
+  "item": [
+    {
+      "id": "b9c1af67-6906-4c8b-a6c7-599fc516416b",
+      "name": "Webhooks",
+      "description": {
+        "content": "Signed server-to-server callbacks for screening status updates.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f5ae1da-ab54-479c-af0b-ad326adefd79",
+          "name": "Webhook receiver (implemented on your side)",
+          "request": {
+            "name": "Webhook receiver (implemented on your side)",
+            "description": {
+              "content": "Documentation of the callback contract. Certn POSTs screening status updates to the endpoint URL you register in the Partner dashboard as results become available. Each request carries a Certn-Signature header (an HMAC-SHA256 over \"{timestamp}.{json_body}\" with a t= timestamp and a v1= signature) so you can verify authenticity and guard against replay. Certn retries up to three additional times on 408/500/502/503/504. There is no public REST endpoint to register webhooks - configuration is done in the Partner dashboard. This path documents the payload you receive, not a Certn-hosted endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "receiver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) HMAC-SHA256 signature \"t={timestamp},v1={signature}\".",
+                "key": "Certn-Signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"<string>\",\n  \"applicant_id\": \"<uuid>\",\n  \"status\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"data\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec89928b-0a9f-49c0-a603-87f609c9e461",
+              "name": "Acknowledge receipt (your endpoint should return 2xx).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "receiver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) HMAC-SHA256 signature \"t={timestamp},v1={signature}\".",
+                    "key": "Certn-Signature",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": \"<string>\",\n  \"applicant_id\": \"<uuid>\",\n  \"status\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"data\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.certn.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "510908e5-cef0-461b-b187-2eeaa2d96bb0",
+    "name": "Certn Applications Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.\n\nAuthentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.\n\nBase URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.\n\nIMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.\n\nContact Support:\n Name: Certn",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Certn Applications API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invite an HR applicant to complete a screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/hr/applications/invite/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite an applicant to complete a screen via email. The applicant fills in their own information and consent, then the requested checks run. (Deprecated in the v1 API; use the CertnCentric equivalent.)"
+        },
+        {
+          "info": {
+            "name": "Screen an HR applicant instantly",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/hr/applications/quick/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Screen an applicant using only the information supplied in the body of the request, without sending an invitation email. (Deprecated in the v1 API.)"
+        },
+        {
+          "info": {
+            "name": "List HR applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/hr/applicants/",
+            "params": [
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by team ID."
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by owner (user) ID."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all applications, in chronological order, with filtering by team or owner."
+        },
+        {
+          "info": {
+            "name": "Invite a property-management applicant to complete a screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/pm/applications/invite/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite one or more applicants to complete a property-management screening form; supports batch invitations. (Deprecated in the v1 API.)"
+        },
+        {
+          "info": {
+            "name": "Screen a property-management applicant instantly",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.certn.co/api/v1/pm/applications/quick/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Screen an applicant using only the information in the body of the request. (Deprecated in the v1 API.)"
+        },
+        {
+          "info": {
+            "name": "List property-management applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/pm/applicants/",
+            "params": [
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by team ID."
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by owner (user) ID."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "View details of all applications, paginated in chronological order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

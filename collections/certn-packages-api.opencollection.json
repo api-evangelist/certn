@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Certn Applications Packages API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add screening requests to an existing application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.certn.co/api/v1/hr/applicants/:applicant_id/packages/",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the applicant / application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrade an application by adding further screening requests (checks or a package) to an existing applicant after the initial report returns. (Deprecated in the v1 API.)"
+        },
+        {
+          "info": {
+            "name": "List screening packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.certn.co/api/v1/packages/",
+            "params": [
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by team ID."
+              }
+            ]
+          },
+          "docs": "List the predefined screening packages configured for the account or team (for example the CertnCentric Essential, Pro, and Elite tiers), each a named bundle of checks. MODELED from the general-resources docs; confirm the exact path against the CertnCentric docs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
