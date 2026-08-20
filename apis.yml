@@ -43,6 +43,8 @@ apis:
   humanURL: https://docs.certn.co/api/api-reference/hr
   baseURL: https://api.certn.co/api/v1
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -183,6 +185,8 @@ apis:
   humanURL: https://docs.certn.co/api/api-reference/hr
   baseURL: https://api.certn.co/api/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
