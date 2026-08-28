@@ -11,6 +11,18 @@ description: Certn is a Canada-based, globally operating background check and id
   exchanged for a Bearer token) and pushes status updates via signed webhooks. The
   original api.certn.co v1 REST API is deprecated (discontinued 2026-08-05) in
   favor of the newer CertnCentric APIs; both are modeled here honestly.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
