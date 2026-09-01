@@ -4,10 +4,15 @@
     {
       "source": "https://certn.co/blog/feed",
       "feed_url": "https://certn.co/blog/feed",
-      "title": "The Certn Blog \u2013 Certn: The World's Easiest Background Checks",
-      "saved": 0
+      "title": "The Certn Blog – Certn: The World's Easiest Background Checks",
+      "saved": 0,
+      "nature": "vendor-blog",
+      "nature_basis": "path_blog"
     }
   ],
   "fetched": "2026-08-30T22:05:13Z",
-  "post_count": 12
+  "post_count": 12,
+  "feed_nature": "vendor-blog",
+  "feed_nature_basis": "path_blog",
+  "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
 }
