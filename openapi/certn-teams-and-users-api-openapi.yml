@@ -1,16 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Certn Applications Teams and Users API
-  description: 'Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.
-
-
-    Authentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.
-
-
-    Base URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.
-
-
-    IMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.'
+  title: Certn Teams and Users API
+  description: Certn is a background check and identity verification platform.
   version: '1.0'
   contact:
     name: Certn
@@ -101,19 +92,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        email:
-          type: string
-          format: email
-        first_name:
-          type: string
-        last_name:
-          type: string
     ReferenceTemplate:
       type: object
       properties:
@@ -140,6 +118,19 @@ components:
                 type: boolean
               verifiable:
                 type: boolean
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
     Team:
       type: object
       properties:
@@ -158,13 +149,6 @@ components:
           type: string
         code:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     TeamId:
       name: team_id
@@ -174,6 +158,13 @@ components:
       schema:
         type: string
         format: uuid
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,16 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Certn Applications API
-  description: 'Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.
-
-
-    Authentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.
-
-
-    Base URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.
-
-
-    IMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.'
+  description: Certn is a background check and identity verification platform.
   version: '1.0'
   contact:
     name: Certn
@@ -187,6 +178,56 @@ components:
         date_of_birth:
           type: string
           format: date
+    Report:
+      type: object
+      description: Consolidated report across all checks in an application.
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicant_id:
+          type: string
+          format: uuid
+        overall_result:
+          type: string
+          description: Overall adjudicated outcome / risk assessment.
+        risk_assessment:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report_url:
+          type: string
+          format: uri
+          description: Link to the rendered PDF/HTML report.
+        completed:
+          type: string
+          format: date-time
+    ApplicationList:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type:
+          - string
+          - 'null'
+        previous:
+          type:
+          - string
+          - 'null'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
     Check:
       type: object
       description: An individual check within an application, or an available check type.
@@ -206,21 +247,30 @@ components:
         country:
           type: string
           description: ISO country code the check was run in.
-    ApplicationList:
+    Application:
       type: object
+      description: A screening application for an applicant.
       properties:
-        count:
-          type: integer
-        next:
+        id:
           type: string
-          nullable: true
-        previous:
+          format: uuid
+        status:
           type: string
-          nullable: true
-        results:
+          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
+        applicant:
+          $ref: '#/components/schemas/Applicant'
+        checks:
           type: array
           items:
-            $ref: '#/components/schemas/Application'
+            $ref: '#/components/schemas/Check'
+        report:
+          $ref: '#/components/schemas/Report'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
     ApplicationInvite:
       type: object
       description: Request to invite an applicant to complete a screen.
@@ -253,32 +303,6 @@ components:
           type: boolean
         request_reference_check:
           type: boolean
-    Report:
-      type: object
-      description: Consolidated report across all checks in an application.
-      properties:
-        id:
-          type: string
-          format: uuid
-        applicant_id:
-          type: string
-          format: uuid
-        overall_result:
-          type: string
-          description: Overall adjudicated outcome / risk assessment.
-        risk_assessment:
-          type: string
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report_url:
-          type: string
-          format: uri
-          description: Link to the rendered PDF/HTML report.
-        completed:
-          type: string
-          format: date-time
     QuickScreen:
       type: object
       description: Instant screen using information supplied directly in the request.
@@ -302,45 +326,22 @@ components:
           items:
             type: string
           description: Check type identifiers to run.
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
-    Application:
-      type: object
-      description: A screening application for an applicant.
-      properties:
-        id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
-        applicant:
-          $ref: '#/components/schemas/Applicant'
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report:
-          $ref: '#/components/schemas/Report'
-        created:
-          type: string
-          format: date-time
-        modified:
-          type: string
-          format: date-time
   parameters:
-    Owner:
-      name: owner
+    Team:
+      name: team
       in: query
       required: false
-      description: Filter results by owner (user) ID.
+      description: Filter results by team ID.
       schema:
         type: string
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
     Limit:
       name: limit
       in: query
@@ -350,19 +351,11 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    Offset:
-      name: offset
+    Owner:
+      name: owner
       in: query
       required: false
-      description: Number of records to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-    Team:
-      name: team
-      in: query
-      required: false
-      description: Filter results by team ID.
+      description: Filter results by owner (user) ID.
       schema:
         type: string
   responses:

@@ -1,16 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Certn Applications Packages API
-  description: 'Certn is a background check and identity verification platform. This API lets partner platforms (HR, property management, gig/marketplace) order background screening for applicants, retrieve consolidated reports, manage the checks and packages that make up a screen, and receive status updates via signed webhooks. Certn screens candidates across 200+ countries and territories.
-
-
-    Authentication uses OAuth 2.0 client credentials: a Client ID and Client Secret (created in the Partner tab under API Keys) are exchanged for a Bearer access token that is sent on every request.
-
-
-    Base URL is https://api.certn.co for production and https://demo-api.certn.co for the demo/testing environment.
-
-
-    IMPORTANT - endpoint provenance: The original api.certn.co v1 REST endpoints (under /api/v1/hr, /api/v1/pm, /api/v1/users, /api/v2/teams) are documented and CONFIRMED against the public reference, but Certn deprecated them on 2026-04-13 with discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric documentation portal (centric-api-docs.certn.co) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are MODELED here honestly and marked with x-endpoint-status. Confirm all shapes against the live docs before use.'
+  title: Certn Packages API
+  description: Certn is a background check and identity verification platform.
   version: '1.0'
   contact:
     name: Certn
@@ -97,52 +88,6 @@ components:
         date_of_birth:
           type: string
           format: date
-    Check:
-      type: object
-      description: An individual check within an application, or an available check type.
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
-        status:
-          type: string
-          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
-        result:
-          type: string
-          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
-        country:
-          type: string
-          description: ISO country code the check was run in.
-    PackageUpgrade:
-      type: object
-      description: Additional screening requests to add to an existing application.
-      properties:
-        package:
-          type: string
-          description: ID of a package to add.
-        checks:
-          type: array
-          items:
-            type: string
-          description: Additional check type identifiers to add.
-    Package:
-      type: object
-      description: A named bundle of checks.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        checks:
-          type: array
-          items:
-            type: string
-        team:
-          type: string
     Report:
       type: object
       description: Consolidated report across all checks in an application.
@@ -169,6 +114,59 @@ components:
         completed:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+    Package:
+      type: object
+      description: A named bundle of checks.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        checks:
+          type: array
+          items:
+            type: string
+        team:
+          type: string
+    PackageUpgrade:
+      type: object
+      description: Additional screening requests to add to an existing application.
+      properties:
+        package:
+          type: string
+          description: ID of a package to add.
+        checks:
+          type: array
+          items:
+            type: string
+          description: Additional check type identifiers to add.
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
     Application:
       type: object
       description: A screening application for an applicant.
@@ -193,20 +191,6 @@ components:
         modified:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     ApplicantId:
       name: applicant_id
@@ -223,6 +207,13 @@ components:
       description: Filter results by team ID.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
