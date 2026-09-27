@@ -42,15 +42,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ApplicantId:
-      name: applicant_id
-      in: path
-      required: true
-      description: The UUID of the applicant / application.
-      schema:
-        type: string
-        format: uuid
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Report:
       type: object
@@ -104,19 +108,15 @@ components:
         country:
           type: string
           description: ISO country code the check was run in.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    ApplicantId:
+      name: applicant_id
+      in: path
+      required: true
+      description: The UUID of the applicant / application.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     bearerAuth:
       type: http

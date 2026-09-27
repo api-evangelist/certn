@@ -72,22 +72,45 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Applicant:
+    Application:
       type: object
+      description: A screening application for an applicant.
       properties:
         id:
           type: string
           format: uuid
-        first_name:
+        status:
           type: string
-        last_name:
+          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
+        applicant:
+          $ref: '#/components/schemas/Applicant'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report:
+          $ref: '#/components/schemas/Report'
+        created:
           type: string
-        email:
+          format: date-time
+        modified:
           type: string
-          format: email
-        date_of_birth:
+          format: date-time
+    Package:
+      type: object
+      description: A named bundle of checks.
+      properties:
+        id:
           type: string
-          format: date
+          format: uuid
+        name:
+          type: string
+        checks:
+          type: array
+          items:
+            type: string
+        team:
+          type: string
     Report:
       type: object
       description: Consolidated report across all checks in an application.
@@ -121,21 +144,6 @@ components:
           type: string
         code:
           type: string
-    Package:
-      type: object
-      description: A named bundle of checks.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        checks:
-          type: array
-          items:
-            type: string
-        team:
-          type: string
     PackageUpgrade:
       type: object
       description: Additional screening requests to add to an existing application.
@@ -148,6 +156,22 @@ components:
           items:
             type: string
           description: Additional check type identifiers to add.
+    Applicant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        date_of_birth:
+          type: string
+          format: date
     Check:
       type: object
       description: An individual check within an application, or an available check type.
@@ -167,31 +191,14 @@ components:
         country:
           type: string
           description: ISO country code the check was run in.
-    Application:
-      type: object
-      description: A screening application for an applicant.
-      properties:
-        id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
-        applicant:
-          $ref: '#/components/schemas/Applicant'
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report:
-          $ref: '#/components/schemas/Report'
-        created:
-          type: string
-          format: date-time
-        modified:
-          type: string
-          format: date-time
   parameters:
+    Team:
+      name: team
+      in: query
+      required: false
+      description: Filter results by team ID.
+      schema:
+        type: string
     ApplicantId:
       name: applicant_id
       in: path
@@ -200,13 +207,6 @@ components:
       schema:
         type: string
         format: uuid
-    Team:
-      name: team
-      in: query
-      required: false
-      description: Filter results by team ID.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.
