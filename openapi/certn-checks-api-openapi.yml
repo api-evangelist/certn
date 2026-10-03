@@ -43,14 +43,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
     Check:
       type: object
       description: An individual check within an application, or an available check type.
@@ -70,13 +70,13 @@ components:
         country:
           type: string
           description: ISO country code the check was run in.
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

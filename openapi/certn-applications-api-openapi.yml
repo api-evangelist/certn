@@ -161,7 +161,125 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    Owner:
+      name: owner
+      in: query
+      required: false
+      description: Filter results by owner (user) ID.
+      schema:
+        type: string
+    Team:
+      name: team
+      in: query
+      required: false
+      description: Filter results by team ID.
+      schema:
+        type: string
   schemas:
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
+    Report:
+      type: object
+      description: Consolidated report across all checks in an application.
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicant_id:
+          type: string
+          format: uuid
+        overall_result:
+          type: string
+          description: Overall adjudicated outcome / risk assessment.
+        risk_assessment:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report_url:
+          type: string
+          format: uri
+          description: Link to the rendered PDF/HTML report.
+        completed:
+          type: string
+          format: date-time
+    Application:
+      type: object
+      description: A screening application for an applicant.
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
+        applicant:
+          $ref: '#/components/schemas/Applicant'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report:
+          $ref: '#/components/schemas/Report'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    ApplicationList:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type:
+          - string
+          - 'null'
+        previous:
+          type:
+          - string
+          - 'null'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
     ApplicationInvite:
       type: object
       description: Request to invite an applicant to complete a screen.
@@ -194,73 +312,22 @@ components:
           type: boolean
         request_reference_check:
           type: boolean
-    ApplicationList:
+    Applicant:
       type: object
-      properties:
-        count:
-          type: integer
-        next:
-          type:
-          - string
-          - 'null'
-        previous:
-          type:
-          - string
-          - 'null'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Application'
-    Application:
-      type: object
-      description: A screening application for an applicant.
       properties:
         id:
           type: string
           format: uuid
-        status:
+        first_name:
           type: string
-          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
-        applicant:
-          $ref: '#/components/schemas/Applicant'
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report:
-          $ref: '#/components/schemas/Report'
-        created:
+        last_name:
           type: string
-          format: date-time
-        modified:
+        email:
           type: string
-          format: date-time
-    Report:
-      type: object
-      description: Consolidated report across all checks in an application.
-      properties:
-        id:
+          format: email
+        date_of_birth:
           type: string
-          format: uuid
-        applicant_id:
-          type: string
-          format: uuid
-        overall_result:
-          type: string
-          description: Overall adjudicated outcome / risk assessment.
-        risk_assessment:
-          type: string
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report_url:
-          type: string
-          format: uri
-          description: Link to the rendered PDF/HTML report.
-        completed:
-          type: string
-          format: date-time
+          format: date
     Error:
       type: object
       properties:
@@ -291,73 +358,6 @@ components:
           items:
             type: string
           description: Check type identifiers to run.
-    Applicant:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-          format: email
-        date_of_birth:
-          type: string
-          format: date
-    Check:
-      type: object
-      description: An individual check within an application, or an available check type.
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
-        status:
-          type: string
-          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
-        result:
-          type: string
-          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
-        country:
-          type: string
-          description: ISO country code the check was run in.
-  parameters:
-    Owner:
-      name: owner
-      in: query
-      required: false
-      description: Filter results by owner (user) ID.
-      schema:
-        type: string
-    Team:
-      name: team
-      in: query
-      required: false
-      description: Filter results by team ID.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of records to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-    Offset:
-      name: offset
-      in: query
-      required: false
-      description: Number of records to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.

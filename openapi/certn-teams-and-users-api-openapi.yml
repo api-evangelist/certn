@@ -91,36 +91,18 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    TeamId:
-      name: team_id
-      in: path
-      required: true
-      description: The UUID of the team.
-      schema:
-        type: string
-        format: uuid
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    User:
+    Team:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        email:
+        name:
           type: string
-          format: email
-        first_name:
+        superteam:
           type: string
-        last_name:
-          type: string
+          format: uuid
     ReferenceTemplate:
       type: object
       properties:
@@ -147,6 +129,19 @@ components:
                 type: boolean
               verifiable:
                 type: boolean
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
     Error:
       type: object
       properties:
@@ -154,17 +149,22 @@ components:
           type: string
         code:
           type: string
-    Team:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        superteam:
-          type: string
-          format: uuid
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TeamId:
+      name: team_id
+      in: path
+      required: true
+      description: The UUID of the team.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     bearerAuth:
       type: http

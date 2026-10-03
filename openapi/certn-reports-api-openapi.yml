@@ -42,20 +42,35 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    ApplicantId:
+      name: applicant_id
+      in: path
+      required: true
+      description: The UUID of the applicant / application.
+      schema:
+        type: string
+        format: uuid
   schemas:
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
     Report:
       type: object
       description: Consolidated report across all checks in an application.
@@ -89,34 +104,19 @@ components:
           type: string
         code:
           type: string
-    Check:
-      type: object
-      description: An individual check within an application, or an available check type.
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
-        status:
-          type: string
-          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
-        result:
-          type: string
-          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
-        country:
-          type: string
-          description: ISO country code the check was run in.
-  parameters:
-    ApplicantId:
-      name: applicant_id
-      in: path
-      required: true
-      description: The UUID of the applicant / application.
-      schema:
-        type: string
-        format: uuid
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

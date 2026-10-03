@@ -71,7 +71,80 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    ApplicantId:
+      name: applicant_id
+      in: path
+      required: true
+      description: The UUID of the applicant / application.
+      schema:
+        type: string
+        format: uuid
+    Team:
+      name: team
+      in: query
+      required: false
+      description: Filter results by team ID.
+      schema:
+        type: string
   schemas:
+    PackageUpgrade:
+      type: object
+      description: Additional screening requests to add to an existing application.
+      properties:
+        package:
+          type: string
+          description: ID of a package to add.
+        checks:
+          type: array
+          items:
+            type: string
+          description: Additional check type identifiers to add.
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
+    Report:
+      type: object
+      description: Consolidated report across all checks in an application.
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicant_id:
+          type: string
+          format: uuid
+        overall_result:
+          type: string
+          description: Overall adjudicated outcome / risk assessment.
+        risk_assessment:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report_url:
+          type: string
+          format: uri
+          description: Link to the rendered PDF/HTML report.
+        completed:
+          type: string
+          format: date-time
     Application:
       type: object
       description: A screening application for an applicant.
@@ -111,51 +184,6 @@ components:
             type: string
         team:
           type: string
-    Report:
-      type: object
-      description: Consolidated report across all checks in an application.
-      properties:
-        id:
-          type: string
-          format: uuid
-        applicant_id:
-          type: string
-          format: uuid
-        overall_result:
-          type: string
-          description: Overall adjudicated outcome / risk assessment.
-        risk_assessment:
-          type: string
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report_url:
-          type: string
-          format: uri
-          description: Link to the rendered PDF/HTML report.
-        completed:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
-    PackageUpgrade:
-      type: object
-      description: Additional screening requests to add to an existing application.
-      properties:
-        package:
-          type: string
-          description: ID of a package to add.
-        checks:
-          type: array
-          items:
-            type: string
-          description: Additional check type identifiers to add.
     Applicant:
       type: object
       properties:
@@ -172,41 +200,13 @@ components:
         date_of_birth:
           type: string
           format: date
-    Check:
+    Error:
       type: object
-      description: An individual check within an application, or an available check type.
       properties:
-        id:
+        detail:
           type: string
-          format: uuid
-        type:
+        code:
           type: string
-          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
-        status:
-          type: string
-          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
-        result:
-          type: string
-          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
-        country:
-          type: string
-          description: ISO country code the check was run in.
-  parameters:
-    Team:
-      name: team
-      in: query
-      required: false
-      description: Filter results by team ID.
-      schema:
-        type: string
-    ApplicantId:
-      name: applicant_id
-      in: path
-      required: true
-      description: The UUID of the applicant / application.
-      schema:
-        type: string
-        format: uuid
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.
