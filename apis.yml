@@ -234,6 +234,9 @@ apis:
   - type: Documentation
     url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
 common:
+- type: CapabilityMap
+  url: capabilities/certn-capability-edges.yml
+  name: Certn Business Capability Map
 - type: AgenticAccess
   url: agentic-access/certn-agentic-access.yml
 - type: VulnerabilityDisclosure

@@ -1,0 +1,26 @@
+slug: certn
+provider: Certn
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Applications
+  spec_file: certn-applications-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.7
+  evidence: POST /api/v1/hr/applications/invite/ "Invite an HR applicant to complete a screen"; "Screen
+    an HR applicant instantly"
+  reason: Ordering and tracking pre-employment background screens for HR applicants is part of sourcing/hiring
+    (Talent Acquisition). Confidence tempered because the same tag also covers property-management tenant
+    screening, which is outside the HR frame.
