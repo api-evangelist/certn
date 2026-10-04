@@ -87,7 +87,30 @@ components:
       description: Filter results by team ID.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Applicant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        date_of_birth:
+          type: string
+          format: date
     PackageUpgrade:
       type: object
       description: Additional screening requests to add to an existing application.
@@ -100,6 +123,30 @@ components:
           items:
             type: string
           description: Additional check type identifiers to add.
+    Application:
+      type: object
+      description: A screening application for an applicant.
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
+        applicant:
+          $ref: '#/components/schemas/Applicant'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report:
+          $ref: '#/components/schemas/Report'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
     Check:
       type: object
       description: An individual check within an application, or an available check type.
@@ -119,6 +166,21 @@ components:
         country:
           type: string
           description: ISO country code the check was run in.
+    Package:
+      type: object
+      description: A named bundle of checks.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        checks:
+          type: array
+          items:
+            type: string
+        team:
+          type: string
     Report:
       type: object
       description: Consolidated report across all checks in an application.
@@ -145,61 +207,6 @@ components:
         completed:
           type: string
           format: date-time
-    Application:
-      type: object
-      description: A screening application for an applicant.
-      properties:
-        id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
-        applicant:
-          $ref: '#/components/schemas/Applicant'
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report:
-          $ref: '#/components/schemas/Report'
-        created:
-          type: string
-          format: date-time
-        modified:
-          type: string
-          format: date-time
-    Package:
-      type: object
-      description: A named bundle of checks.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        checks:
-          type: array
-          items:
-            type: string
-        team:
-          type: string
-    Applicant:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-          format: email
-        date_of_birth:
-          type: string
-          format: date
     Error:
       type: object
       properties:
@@ -207,13 +214,6 @@ components:
           type: string
         code:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

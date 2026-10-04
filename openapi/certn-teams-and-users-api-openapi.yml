@@ -91,18 +91,23 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TeamId:
+      name: team_id
+      in: path
+      required: true
+      description: The UUID of the team.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    Team:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        superteam:
-          type: string
-          format: uuid
     ReferenceTemplate:
       type: object
       properties:
@@ -142,6 +147,17 @@ components:
           type: string
         last_name:
           type: string
+    Team:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        superteam:
+          type: string
+          format: uuid
     Error:
       type: object
       properties:
@@ -149,22 +165,6 @@ components:
           type: string
         code:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    TeamId:
-      name: team_id
-      in: path
-      required: true
-      description: The UUID of the team.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     bearerAuth:
       type: http
