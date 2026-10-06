@@ -58,7 +58,7 @@ tags_raw:
 - Compliance
 - Trust and Safety
 created: '2026-07-03'
-modified: '2026-07-03'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: certn:certn-applications-api
@@ -234,6 +234,8 @@ apis:
   - type: Documentation
     url: https://docs.certn.co/api/start/demo-account/understand-your-general-resources
 common:
+- url: https://certn.co/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/certn-capability-edges.yml
   name: Certn Business Capability Map
