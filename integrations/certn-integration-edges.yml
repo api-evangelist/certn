@@ -2,6 +2,9 @@ generated: '2026-10-14'
 method: searched
 checked:
 - greenhouse/integrations/greenhouse-integration-edges.yml
+- https://kantarainitiative.org/trust-status-list/
+- https://msb.fincen.gov/
+- https://www.access-dvs-register.service.gov.uk/register/download-register
 source:
 - greenhouse/integrations/greenhouse-integration-edges.yml
 edges:
@@ -21,3 +24,37 @@ edges:
   listing_count: 1
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
+- partner_name: UK DVS register (DSIT)
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.access-dvs-register.service.gov.uk/register/service-details?serviceId=264
+  category: Digital identity verification
+  contract_reference:
+    register: UK digital verification services register (DIATF; access-dvs-register.service.gov.uk)
+    spec_file: null
+    standard: UK DIATF (digital verification services)
+    role: dvs-registered
+    registered_name: Certn (UK) LTD
+    trading_name: Certn
+    register_id: Certn (UK) LTD
+    website: https://certn.co/emea/
+    matched_domain: certn.co
+    matched_by: domain
+    certified_products:
+    - product: Identity service
+      newest_expiry: '2029-03-13'
+      lapsed: false
+    dvs_services:
+    - Certn 1.0
+    conformity_assessment_bodies:
+    - Kantara
+    signal_note: certified_products = one entry per ROLE certified (identity / attribute / orchestration...), lapsed
+      when every certificate for the role has expired; services and schemes are context
+    detected_by: sweep-regtech-aml.py
+    detected: '2026-10-15'
+  detected_by: sweep-regtech-aml.py
+  first_seen: '2026-10-15'

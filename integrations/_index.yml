@@ -15,3 +15,37 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: certn-uk-dvs-register-dsit
+  label: UK DVS register (DSIT)
+  partner_name: UK DVS register (DSIT)
+  category: Digital identity verification
+  type: register
+  channel: regulator-register
+  evidence: https://www.access-dvs-register.service.gov.uk/register/service-details?serviceId=264
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: UK digital verification services register (DIATF; access-dvs-register.service.gov.uk)
+    spec_file: null
+    standard: UK DIATF (digital verification services)
+    role: dvs-registered
+    registered_name: Certn (UK) LTD
+    trading_name: Certn
+    register_id: Certn (UK) LTD
+    website: https://certn.co/emea/
+    matched_domain: certn.co
+    matched_by: domain
+    certified_products:
+    - product: Identity service
+      newest_expiry: '2029-03-13'
+      lapsed: false
+    dvs_services:
+    - Certn 1.0
+    conformity_assessment_bodies:
+    - Kantara
+    signal_note: certified_products = one entry per ROLE certified (identity / attribute / orchestration...), lapsed
+      when every certificate for the role has expired; services and schemes are context
+    detected_by: sweep-regtech-aml.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
