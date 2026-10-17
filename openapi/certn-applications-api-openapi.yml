@@ -161,56 +161,39 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+    Owner:
+      name: owner
+      in: query
+      required: false
+      description: Filter results by owner (user) ID.
+      schema:
+        type: string
+    Team:
+      name: team
+      in: query
+      required: false
+      description: Filter results by team ID.
+      schema:
+        type: string
   schemas:
-    ApplicationList:
-      type: object
-      properties:
-        count:
-          type: integer
-        next:
-          type:
-          - string
-          - 'null'
-        previous:
-          type:
-          - string
-          - 'null'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Application'
-    ApplicationInvite:
-      type: object
-      description: Request to invite an applicant to complete a screen.
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-          description: Applicant email to send the invitation to.
-        first_name:
-          type: string
-        last_name:
-          type: string
-        package:
-          type: string
-          description: ID of the screening package to apply.
-        team:
-          type: string
-          description: Team ID that owns the application.
-        request_criminal_record_check:
-          type: boolean
-        request_identity_verification:
-          type: boolean
-        request_credit_check:
-          type: boolean
-        request_employment_verification:
-          type: boolean
-        request_education_verification:
-          type: boolean
-        request_reference_check:
-          type: boolean
     Applicant:
       type: object
       properties:
@@ -227,72 +210,6 @@ components:
         date_of_birth:
           type: string
           format: date
-    Application:
-      type: object
-      description: A screening application for an applicant.
-      properties:
-        id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
-        applicant:
-          $ref: '#/components/schemas/Applicant'
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Check'
-        report:
-          $ref: '#/components/schemas/Report'
-        created:
-          type: string
-          format: date-time
-        modified:
-          type: string
-          format: date-time
-    Check:
-      type: object
-      description: An individual check within an application, or an available check type.
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
-        status:
-          type: string
-          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
-        result:
-          type: string
-          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
-        country:
-          type: string
-          description: ISO country code the check was run in.
-    QuickScreen:
-      type: object
-      description: Instant screen using information supplied directly in the request.
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-        first_name:
-          type: string
-        last_name:
-          type: string
-        date_of_birth:
-          type: string
-          format: date
-        package:
-          type: string
-        checks:
-          type: array
-          items:
-            type: string
-          description: Check type identifiers to run.
     Report:
       type: object
       description: Consolidated report across all checks in an application.
@@ -326,6 +243,121 @@ components:
           type: string
         code:
           type: string
+    QuickScreen:
+      type: object
+      description: Instant screen using information supplied directly in the request.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+        package:
+          type: string
+        checks:
+          type: array
+          items:
+            type: string
+          description: Check type identifiers to run.
+    ApplicationList:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type:
+          - string
+          - 'null'
+        previous:
+          type:
+          - string
+          - 'null'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+    Check:
+      type: object
+      description: An individual check within an application, or an available check type.
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Check type - e.g. CRIMINAL_RECORD_CHECK, ENHANCED_CRIMINAL_RECORD_CHECK, INTERNATIONAL_CRIMINAL_RECORD_CHECK, IDENTITY_VERIFICATION, CREDIT_CHECK, PUBLIC_RECORDS, EMPLOYMENT_VERIFICATION, EDUCATION_VERIFICATION, CREDENTIAL_VERIFICATION, REFERENCE_CHECK, DRIVERS_ABSTRACT, WORKING_WITH_CHILDREN, SOCIAL_MEDIA.
+        status:
+          type: string
+          description: Check status (e.g. PENDING, ANALYZING, COMPLETE, CANCELLED).
+        result:
+          type: string
+          description: Adjudicated result (e.g. CLEAR, CONSIDER, IN_DISPUTE).
+        country:
+          type: string
+          description: ISO country code the check was run in.
+    ApplicationInvite:
+      type: object
+      description: Request to invite an applicant to complete a screen.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Applicant email to send the invitation to.
+        first_name:
+          type: string
+        last_name:
+          type: string
+        package:
+          type: string
+          description: ID of the screening package to apply.
+        team:
+          type: string
+          description: Team ID that owns the application.
+        request_criminal_record_check:
+          type: boolean
+        request_identity_verification:
+          type: boolean
+        request_credit_check:
+          type: boolean
+        request_employment_verification:
+          type: boolean
+        request_education_verification:
+          type: boolean
+        request_reference_check:
+          type: boolean
+    Application:
+      type: object
+      description: A screening application for an applicant.
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          description: Overall application status (e.g. PENDING, ANALYZING, COMPLETE).
+        applicant:
+          $ref: '#/components/schemas/Applicant'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        report:
+          $ref: '#/components/schemas/Report'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.
@@ -333,38 +365,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      required: false
-      description: Number of records to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-    Team:
-      name: team
-      in: query
-      required: false
-      description: Filter results by team ID.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of records to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-    Owner:
-      name: owner
-      in: query
-      required: false
-      description: Filter results by owner (user) ID.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
