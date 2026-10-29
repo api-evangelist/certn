@@ -1,4 +1,4 @@
-# Certn (certn)
+# Certn
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,86 +64,129 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Certn is a Canada-based, globally operating background check and identity verification platform. Its RESTful API lets HR, property management, gig, and marketplace platforms order and retrieve criminal record checks, identity verification, credit, employment, education, credential, and reference checks across 200+ countries and territories, then receive results and adjudicated reports. The API authenticates with OAuth 2.0 client credentials (a Client ID and Client Secret exchanged for a Bearer token) and pushes status updates via signed webhooks. API access is free - you pay only for the checks you use.
+Certn is a Canada-based, globally operating background check and identity verification platform. Its RESTful API lets HR, property management, gig, and marketplace platforms order and retrieve criminal record checks, identity verification, credit, employment, education, credential, and reference checks across 200+ countries, then receive results and adjudicated reports. The API authenticates with OAuth 2.0 client credentials (Client ID / Client Secret exchanged for a Bearer token) and pushes status updates via signed webhooks. The original api.certn.co v1 REST API is deprecated (discontinued 2026-08-05) in favor of the newer CertnCentric APIs; both are modeled here honestly.
 
-**Note on API versions:** The original `api.certn.co` v1/v2 REST endpoints are documented and confirmed but were deprecated on 2026-04-13 and are scheduled for discontinuation on 2026-08-05 in favor of the newer CertnCentric APIs. The CertnCentric portal (`centric-api-docs.certn.co`) is a client-rendered SPA whose exact endpoint paths could not be scraped; its resource groupings (cases, checks, reports, packages, webhooks) are modeled honestly here and flagged with `x-endpoint-status` in the OpenAPI.
+**Areas:** Background Checks · Identity Verification · Criminal Record Check · Screening · Human Resources · Compliance · Trust and Safety
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/certn/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/certn/refs/heads/main/apis.yml)
+## Certn on APIs.io
 
-## Tags
+Everything profiled for Certn is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/certn/](https://apis.io/providers/certn/)** — or go straight to one of the APIs or properties below.
 
-- Background Checks
-- Identity Verification
-- Criminal Record Check
-- Screening
-- HR Tech
-- Compliance
-- Trust and Safety
+### APIs (6)
 
-## Timestamps
+- [Certn Applications API](https://apis.io/apis/certn/certn-applications-api/) — Invite or instantly screen applicants and list applications (HR and PM surfaces).
+- [Certn Checks API](https://apis.io/apis/certn/certn-checks-api/) — Individual check types requested and returned within an application.
+- [Certn Packages API](https://apis.io/apis/certn/certn-packages-api/) — Predefined bundles of checks and application upgrades.
+- [Certn Reports API](https://apis.io/apis/certn/certn-reports-api/) — Consolidated applicant screening reports and results.
+- [Certn Teams and Users API](https://apis.io/apis/certn/certn-teams-and-users-api/) — Organizational hierarchy - Superteams, Teams, Users, reference templates.
+- [Certn Webhooks API](https://apis.io/apis/certn/certn-webhooks-api/) — Signed server-to-server callbacks for screening status updates.
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+### Published properties
 
-## Authentication
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-OAuth 2.0 client credentials. Create a Client ID and Client Secret in the Partner tab under API Keys (the Client Secret is shown only at creation time), exchange them for an access token, and send it as `Authorization: Bearer {token}`. Base URL is `https://api.certn.co` for production and `https://demo-api.certn.co` for the demo environment.
+#### Agentic access (1)
 
-## APIs
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Certn Applications API
+- [Certn Agentic Access](https://apis.io/agentic-access/certn/certn-agentic-access/)
 
-Invite an applicant to complete a screen by email, or screen an applicant instantly from the request body, then list and filter applications. Covers the HR (`/api/v1/hr`) and Property Management (`/api/v1/pm`) surfaces.
+#### Collections (7)
 
-- **Human URL:** [https://docs.certn.co/api/api-reference/hr](https://docs.certn.co/api/api-reference/hr)
-- **Base URL:** `https://api.certn.co/api/v1`
+Postman and Open Collection request collections.
 
-### Certn Checks API
+- [Certn API](https://apis.io/collections/certn/open-certn/)
+- [Certn Applications API](https://apis.io/collections/certn/open-certn-applications-api/)
+- [Certn Applications Checks API](https://apis.io/collections/certn/open-certn-checks-api/)
+- [Certn Applications Packages API](https://apis.io/collections/certn/open-certn-packages-api/)
+- [Certn Applications Reports API](https://apis.io/collections/certn/open-certn-reports-api/)
+- [Certn Applications Teams and Users API](https://apis.io/collections/certn/open-certn-teams-and-users-api/)
+- [Certn Applications Webhooks API](https://apis.io/collections/certn/open-certn-webhooks-api/)
 
-Request and retrieve individual check types - criminal record checks (Basic and Enhanced Canadian, US, international across 200+ countries), identity/OneID verification, credit reports, public records, employment, education, credential, professional reference, driver's abstract, working-with-children, and social media checks.
+#### Security (3)
 
-- **Human URL:** [https://docs.certn.co/api](https://docs.certn.co/api)
-- **Base URL:** `https://api.certn.co/api/v1`
+Authentication, trust centre, and vulnerability disclosure.
 
-### Certn Reports API
+- [Certn Authentication](https://apis.io/security/certn/certn-authentication/)
+- [Certn Domain Security](https://apis.io/security/certn/certn-domain-security/)
+- [Certn Vulnerability Disclosure](https://apis.io/security/certn/certn-vulnerability-disclosure/)
 
-Retrieve consolidated screening reports for an applicant - each requested check's status and findings, verified identity and financial data, and an overall risk assessment, paginated and filterable by team or owner.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://docs.certn.co/api/api-reference/hr](https://docs.certn.co/api/api-reference/hr)
-- **Base URL:** `https://api.certn.co/api/v1`
+Published plans, tiers and prices.
 
-### Certn Packages API
+- [Certn Plans Pricing](https://apis.io/plans/certn/certn-plans-pricing/)
 
-List the predefined screening packages (bundled check sets such as the CertnCentric Essential, Pro, and Elite tiers) and upgrade an existing application by adding further screening requests to an applicant.
+#### Rate limits (1)
 
-- **Human URL:** [https://docs.certn.co/api/start/demo-account/understand-your-general-resources](https://docs.certn.co/api/start/demo-account/understand-your-general-resources)
-- **Base URL:** `https://api.certn.co/api/v1`
+Published request limits.
 
-### Certn Webhooks API
+- [Certn Rate Limits](https://apis.io/rate-limits/certn/certn-rate-limits/)
 
-Receive server-to-server POST callbacks as screening results become available. Certn signs each payload with a `Certn-Signature` header (HMAC-SHA256 with a timestamp and v1 signature) and retries on 408/500/502/503/504. Webhook endpoints are registered in the Partner dashboard, not via a public REST endpoint.
+#### FinOps (1)
 
-- **Human URL:** [https://docs.certn.co/api/guides/use-the-api/webhooks](https://docs.certn.co/api/guides/use-the-api/webhooks)
-- **Base URL:** `https://api.certn.co/api/v1`
+What the API costs to run, by operation.
 
-### Certn Teams and Users API
+- [Certn Finops](https://apis.io/finops/certn/certn-finops/)
 
-Read the account's organizational hierarchy - Superteams contain Teams which contain Users - to scope applications, packages, and reports; retrieve the users in the account and the reference templates configured per team.
+## Where to find this API
 
-- **Human URL:** [https://docs.certn.co/api/start/demo-account/understand-your-general-resources](https://docs.certn.co/api/start/demo-account/understand-your-general-resources)
-- **Base URL:** `https://api.certn.co/api/v1`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [GitHub Organization](https://github.com/Certn)
-- [LinkedIn](https://www.linkedin.com/company/certn)
 - [Website](https://certn.co)
 - [Documentation](https://docs.certn.co/api)
-- [Plans](plans/certn-plans-pricing.yml)
-- [Rate Limits](rate-limits/certn-rate-limits.yml)
-- [Fin Ops](finops/certn-finops.yml)
+- [Blog](https://certn.co/blog/feed)
+- [GitHub](https://github.com/Certn)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 23.5** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 33.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 17.6** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/certn/](https://apis.io/providers/certn/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Certn: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/certn/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
